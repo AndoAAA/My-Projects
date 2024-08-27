@@ -1,0 +1,13 @@
+{
+  "header": {
+    "address": "Store Location: Lincoln-344, Illinois, Chicago, USA",
+    "telephone": "Tel:(219) 555-0114",
+    "login": "Sign In"
+  },
+  "menu": {
+    "home": "Home",
+    "shop": "Shop",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us"
+  }
+}
