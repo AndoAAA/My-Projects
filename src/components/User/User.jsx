@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css";
 
 export default function User({
   id,
@@ -11,9 +12,9 @@ export default function User({
 }) {
   return (
     <>
-      <li style={{ display: "flex" }}>
+      <li style={{ display: "flex" }} className="userList">
         <img className="avatar" src={avatar} alt="User" />
-        <div>
+        <div className="title">
           <h3 className="name">
             {first_name} {last_name}
           </h3>

@@ -1,0 +1,23 @@
+.success-img{
+    width: 200px;
+    height: 200px;
+}
+
+.success-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn{
+    width: 150px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}

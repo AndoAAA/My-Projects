@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Users from "./components/Users";
-import Success from "./components/Success";
+import Users from "./components/Users/Users";
+import Success from "./components/Success/Success";
 
 function App() {
   const [users, setUsers] = useState([]);

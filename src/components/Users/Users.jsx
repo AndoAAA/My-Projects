@@ -1,7 +1,8 @@
 import React from "react";
-import { IMAGES } from "../images";
-import Loader from "./Loader";
-import User from "./User";
+import { IMAGES } from "../../images";
+import Loader from "../Loader/Loader";
+import User from "../User/User";
+import "./style.css";
 
 export default function Users({
   items,
@@ -13,18 +14,19 @@ export default function Users({
   onClickSendInvites
 }) {
   return (
-    <>
+    <div className="container">
       <div className="search">
-        <img
-          src={IMAGES.searchIcon}
-          alt="search-icon"
-          style={{ width: "30px", height: "30px" }}
-        />
         <input
+        className="search-input"
           value={searchValue}
           onChange={onChangeSearchValue}
           type="text"
           placeholder="Find user..."
+        />
+        <img
+          className="search-icon"
+          src={IMAGES.searchIcon}
+          alt="search-icon"
         />
       </div>
       {isLoading ? (
@@ -53,9 +55,9 @@ export default function Users({
       )}
       {
         invites.length > 0 &&(
-            <button onClick={onClickSendInvites}>Send invitations</button>
+            <button onClick={onClickSendInvites} className="send-button">Send invitations</button>
         )
       }
-    </>
+    </div>
   );
 }
