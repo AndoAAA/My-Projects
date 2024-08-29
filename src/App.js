@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const onChangeSearchValue = (e) => {
-    setSearchValue(e.target.value);
+    setSearchValue((e.target.value).trim());
   };
 
   const onClickInvite = (id) => {
