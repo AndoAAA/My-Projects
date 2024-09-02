@@ -1,20 +1,19 @@
-.container {
-  width: 100%;
-  height: 100vh;
-  background-color: black;
+.overlay {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  position: absolute;
+  background-image: url(../images/modal-img.jpg);
+  background-size: cover;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  justify-content: end;
 }
 
-.container .openModal {
-  width: 150px;
+.overlay .closeModal {
+  width: 30px;
   height: 30px;
-  color: black;
+  border: none;
   cursor: pointer;
-  border-radius: 10px;
   background: #28cec1;
   background: -moz-linear-gradient(
     -45deg,
