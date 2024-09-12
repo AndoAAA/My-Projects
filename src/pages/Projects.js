@@ -11,21 +11,43 @@ export default function Projects() {
     <>
       <main className="section">
         <div className="container">
-          <ul className="content-list">
-            <li className="content-list__item">
-              <h2 className="title-2">Frontend</h2>
-              <p>
-                JavaScript, TypeScript, ReactJS, Angular, Redux, HTML, CSS, NPM,
-                BootStrap, MaterialUI, Yarn, TailwindCSS, StyledComponents
-              </p>
-            </li>
-            <li className="content-list__item">
-              <h2 className="title-2">Backend</h2>
-              <p>NodeJS, MySQL, MongoDB, PHP, Laravel</p>
-            </li>
-          </ul>
+            <h2 className="title-1">Projects</h2>
+            <ul className="projects">
+                <li className="project">
+                    <a href="./project-page.html">
+                        <img src={project01} alt="Project img" className="project__img"/>
+                        <h3 className="project__title">Gaming streaming portal</h3>
+                    </a>
+                </li>
+                <li className="project">
+                    <a href="./project-page.html">
+                        <img src={project02} alt="Project img" className="project__img"/>
+                        <h3 className="project__title">Video service</h3>
+                    </a>
+                </li>
+                <li className="project">
+                    <a href="./project-page.html">
+                        <img src={project03} alt="Project img" className="project__img"/>
+                        <h3 className="project__title">Video portal</h3>
+                    </a>
+                </li>
+
+                <li className="project">
+                    <img src={project04} alt="Project img" className="project__img"/>
+                    <h3 className="project__title">Dating app</h3>
+                </li>
+                <li className="project">
+                    <img src={project05}alt="Project img" className="project__img"/>
+                    <h3 className="project__title">Landing</h3>
+                </li>
+                <li className="project">
+                    <img src={project06} alt="Project img" className="project__img"/>
+                    <h3 className="project__title">Gaming community</h3>
+                </li>
+
+            </ul>
         </div>
-      </main>
+    </main>
     </>
   );
 }
