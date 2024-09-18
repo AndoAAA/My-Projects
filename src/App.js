@@ -8,13 +8,13 @@ import Contacts from "./pages/Contacts";
 
 function App() {
   return (
-    <>
+    <div className="App">
       <Navbar />
-      {/* <Home />
-      <Projects /> */}
-      <Contacts />
+      {/* <Home /> */}
+      <Projects />
+      {/* <Contacts /> */}
       <Footer />
-    </>
+    </div>
   );
 }
 
