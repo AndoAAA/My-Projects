@@ -21,19 +21,22 @@ export const projects = [
     title: "Gaming streaming portal",
     skills: "React",
     img: project01,
-    imgBig: project01Big
+    imgBig: project01Big,
+    gitHubLink:"https://github.com",
   },
   {
     title: "Video service",
     skills: "React",
     img: project02,
-    imgBig: project02Big
+    imgBig: project02Big,
+    gitHubLink:"https://github.com",
   },
   {
     title: "Video portal",
     skills: "React",
     img: project03,
-    imgBig: project03Big
+    imgBig: project03Big,
+    gitHubLink:"https://github.com",
   },
   {
     title: "Dating app",
