@@ -25,8 +25,8 @@ export const projects = [
     gitHubLink:"https://github.com",
   },
   {
-    title: "Video service",
-    skills: "React",
+    title: "Fruits & Vegetables Shop",
+    skills: "React JS, Redux Toolkit",
     img: project02,
     imgBig: project02Big,
     gitHubLink:"https://github.com",
