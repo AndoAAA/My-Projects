@@ -21,7 +21,7 @@ export default function Contacts() {
             <li className="content-list__item">
               <h2 className="title-2">Email</h2>
               <p>
-                <a href="mailto:webdev@protonmail.com">tarverdyan070@.com</a>
+                <a href="mailto:tarverdyan070@gmail.com">tarverdyan070@gmail.com</a>
               </p>
             </li>
           </ul>
