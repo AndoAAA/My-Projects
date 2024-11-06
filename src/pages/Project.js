@@ -12,7 +12,7 @@ export default function Project() {
         <div className="project-details">
           <h1 className="title-1">{project.title}</h1>
 
-          <img
+          <img 
             src={project.imgBig}
             alt={project.title}
             className="project-details__cover"
@@ -21,7 +21,9 @@ export default function Project() {
           <div className="project-details__desc">
             <p>Skills: {project.skills}</p>
           </div>
-          {project.gitHubLink && <BtnGitHub link="https://github.com" />}
+          {project.gitHubLink && (
+            <BtnGitHub link="https://github.com/AndoAAA?tab=repositories" />
+          )}
         </div>
       </div>
     </main>

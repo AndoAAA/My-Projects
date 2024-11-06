@@ -18,8 +18,8 @@ import project06Big from "./../img/projects/06-big.jpg";
 
 export const projects = [
   {
-    title: "Gaming streaming portal",
-    skills: "React",
+    title: "Inovation Studio",
+    skills: "HTML, CSS, JS",
     img: project01,
     imgBig: project01Big,
     gitHubLink:"https://github.com",
