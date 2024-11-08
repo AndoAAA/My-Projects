@@ -29,14 +29,14 @@ export const projects = [
     skills: "React JS, Redux Toolkit",
     img: project02,
     imgBig: project02Big,
-    gitHubLink:"https://github.com",
+    gitHubLink:"https://github.com/AndoAAA/My-Projects/tree/Online-Shop",
   },
   {
-    title: "Video portal",
-    skills: "React",
+    title: "Dodo Pizza",
+    skills: "React JS, Redux",
     img: project03,
     imgBig: project03Big,
-    gitHubLink:"https://github.com",
+    gitHubLink:"https://github.com/AndoAAA/My-Projects/tree/React-Pizza",
   },
   {
     title: "Dating app",
