@@ -13,33 +13,23 @@ export default function Footer() {
           <div className="footer__wrapper">
             <ul className="social">
               <li className="social__item">
-                <a href="#!">
-                  <img src={vk} alt="Link" />
-                </a>
-              </li>
-              <li className="social__item">
-                <a href="#!">
+                <a href="https://www.instagram.com/ando_tarverdyan/" target='_blank'>
                   <img src={insta} alt="Link" />
                 </a>
               </li>
               <li className="social__item">
-                <a href="#!">
-                  <img src={twitter} alt="Link" />
-                </a>
-              </li>
-              <li className="social__item">
-                <a href="#!">
+                <a href="https://github.com/AndoAAA" target='_blank'>
                   <img src={gitHub} alt="Link" />
                 </a>
               </li>
               <li className="social__item">
-                <a href="#!">
+                <a href="https://www.linkedin.com/in/andranik-tarverdyan-04a356319/" target='_blank'>
                   <img src={linkedIn} alt="Link" />
                 </a>
               </li>
             </ul>
             <div className="copyright">
-              <p>© 2024 frontend-dev.xxx</p>
+              <p>© 2024 tarverdyan070@gmail.com</p>
             </div>
           </div>
         </div>
