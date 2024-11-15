@@ -7,7 +7,6 @@ const PizzaBlock = ({ name, imageUrl, price, types }) => {
 
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(0);
- 
 
   const onSelectType = (index) => {
     setActiveType(index);
@@ -16,7 +15,6 @@ const PizzaBlock = ({ name, imageUrl, price, types }) => {
   const onSelectSize = (index) => {
     setActiveSize(index);
   };
-
 
   return (
     <>

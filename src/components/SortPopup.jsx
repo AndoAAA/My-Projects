@@ -28,14 +28,14 @@ const SortPopup = ({ items }) => {
     };
   }, []);
 
-  const activeLabel = items[activeItem];
+  const activeLabel = items[activeItem].name;
 
   return (
     <>
       <div ref={sortRef} className="sort">
         <div className="sort__label">
           <svg
-          className={visiblePopup ? "rotated" : ""}
+            className={visiblePopup ? "rotated" : ""}
             width="10"
             height="6"
             viewBox="0 0 10 6"
@@ -54,13 +54,13 @@ const SortPopup = ({ items }) => {
           <div className="sort__popup">
             <ul>
               {items &&
-                items.map((item, index) => (
+                items.map((obj, index) => (
                   <li
                     className={activeItem === index ? "active" : ""}
                     key={index}
                     onClick={() => onSelectItem(index)}
                   >
-                    {item}
+                    {obj.name}
                   </li>
                 ))}
             </ul>

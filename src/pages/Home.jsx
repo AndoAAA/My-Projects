@@ -4,7 +4,6 @@ import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 
 const Home = ({ items }) => {
-  
   return (
     <>
       <div className="container">
@@ -13,7 +12,13 @@ const Home = ({ items }) => {
             items={["Meat", "Vegetarian", "Grill", "Spicy", "Closed"]}
             onClick={() => console.log("hello")}
           />
-          <SortPopup items={["popularity", "price", "alphabet"]} />
+          <SortPopup
+            items={[
+              { name: "popularity", type: "popular" },
+              { name: "price", type: "price" },
+              { name: "alphabet", type: "alphabet" },
+            ]}
+          />
         </div>
         <h2 className="content__title">All pizzas</h2>
         <div className="content__items">
