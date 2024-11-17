@@ -3,17 +3,24 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setPizzas } from "./redux/actions/pizzas";
 
 function App() {
-  const [pizzas, setPizzas] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/db.json").then(({ data }) => {
-      setPizzas(data.pizzas);
-    });
-  }, []);
+    axios
+      .get("http://localhost:3000/db.json")
+      .then(({ data }) => {
+        dispatch(setPizzas(data.pizzas));
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [dispatch]);
 
   return (
     <>
@@ -21,7 +28,7 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home items={pizzas} />} exact />
+            <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
