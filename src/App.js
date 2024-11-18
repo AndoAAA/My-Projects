@@ -13,9 +13,9 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/db.json")
+      .get("http://localhost:3001/pizzas")
       .then(({ data }) => {
-        dispatch(setPizzas(data.pizzas));
+        dispatch(setPizzas(data));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
