@@ -15,7 +15,7 @@ function App() {
     axios
       .get("http://localhost:3001/pizzas")
       .then(({ data }) => {
-        dispatch(setPizzas(data));
+        dispatch(setPizzas(data));  
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

@@ -15,6 +15,7 @@ const sortItems = [
 const Home = () => {
   const dispatch = useDispatch();
   const items = useSelector(({ pizzas }) => pizzas.items);
+  
 
   const onSelectCategory = useCallback(
     (index) => {
