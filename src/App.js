@@ -4,22 +4,14 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setPizzas } from "./redux/actions/pizzas";
+import { fetchPizzas } from "./redux/actions/pizzas";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/pizzas")
-      .then(({ data }) => {
-        dispatch(setPizzas(data));  
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    dispatch(fetchPizzas());
   }, [dispatch]);
 
   return (

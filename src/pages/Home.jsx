@@ -15,6 +15,7 @@ const sortItems = [
 const Home = () => {
   const dispatch = useDispatch();
   const items = useSelector(({ pizzas }) => pizzas.items);
+  const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   
 
   const onSelectCategory = useCallback(
@@ -40,8 +41,8 @@ const Home = () => {
         </div>
         <h2 className="content__title">All pizzas</h2>
         <div className="content__items">
-          {items?.map((obj) => (
-            <PizzaBlock key={obj.id} {...obj} />
+          {isLoaded && items?.map((obj) => (
+            <PizzaBlock key={obj.id} {...obj} isLoading={true}/>
           ))}
         </div>
       </div>

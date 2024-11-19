@@ -1,12 +1,17 @@
 import classNames from "classnames";
 import React, { useState } from "react";
+import LoadingBlock from "./LoadingBlock";
 
-const PizzaBlock = ({ name, imageUrl, price, types }) => {
+const PizzaBlock = ({ name, imageUrl, price, types, isLoading }) => {
   const typesNames = ["thin", "traditional"];
   const sizes = [26, 30, 40];
 
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(0);
+
+  if(isLoading){
+    return <LoadingBlock/>
+  }
 
   const onSelectType = (index) => {
     setActiveType(index);
