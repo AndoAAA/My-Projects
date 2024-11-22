@@ -1,4 +1,8 @@
-import { SET_PIZZAS, FETCH_PIZZAS_FAILED } from "../actions/actionTypes";
+import {
+  SET_PIZZAS,
+  FETCH_PIZZAS_FAILED,
+  SET_LOADED,
+} from "../actions/actionTypes";
 
 const initialState = {
   items: [],
@@ -20,6 +24,11 @@ const pizzasReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         isLoaded: true,
+      };
+    case SET_LOADED:
+      return {
+        ...state,
+        isLoaded: action.payload,
       };
     default:
       return state;

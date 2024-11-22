@@ -1,35 +1,41 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 
-const SortPopup = React.memo(({ items }) => {
+const SortPopup = React.memo(({ items, onClickSortType, activeSortType }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [activeItem, setActiveItem] = useState(0);
+  const sortRef = useRef();
+  const activeLabel =
+    items.find(
+      (obj) =>
+        obj.type === activeSortType.type && obj.order === activeSortType.order
+    )?.name || "popular";
 
-  const onSelectItem = (index) => {
-    setActiveItem(index);
+  const onSelectItem = (sortOption) => {
+    onClickSortType(sortOption);
     setVisiblePopup(false);
   };
 
-  const sortRef = useRef();
-
-  const toggleVisiblePopup = () => {
-    setVisiblePopup(!visiblePopup);
-  };
-
-  const handleOutsideClick = (e) => {
-    if (sortRef.current && !sortRef.current.contains(e.target)) {
-      setVisiblePopup(false);
+  const toggleVisiblePopup = (event) => {
+    if (
+      event.type === "click" ||
+      (event.type === "keydown" && event.key === "Enter")
+    ) {
+      setVisiblePopup(!visiblePopup);
     }
   };
 
   useEffect(() => {
-    document.body.addEventListener("click", handleOutsideClick);
+    const handleClickOutside = (e) => {
+      if (sortRef.current && !sortRef.current.contains(e.target)) {
+        setVisiblePopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.body.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  const activeLabel = items[activeItem].name;
-
   return (
     <>
       <div ref={sortRef} className="sort">
@@ -48,7 +54,14 @@ const SortPopup = React.memo(({ items }) => {
             />
           </svg>
           <b>Sort by:</b>
-          <span onClick={toggleVisiblePopup}>{activeLabel}</span>
+          <span
+            onClick={toggleVisiblePopup}
+            onKeyDown={toggleVisiblePopup}
+            tabIndex={0}
+            role="button"
+          >
+            {activeLabel}
+          </span>
         </div>
         {visiblePopup && (
           <div className="sort__popup">
@@ -56,9 +69,14 @@ const SortPopup = React.memo(({ items }) => {
               {items &&
                 items.map((obj, index) => (
                   <li
-                    className={activeItem === index ? "active" : ""}
+                    className={
+                      activeSortType.type === obj.type &&
+                      activeSortType.order === obj.order
+                        ? "active"
+                        : ""
+                    }
                     key={index}
-                    onClick={() => onSelectItem(index)}
+                    onClick={() => onSelectItem(obj)}
                   >
                     {obj.name}
                   </li>
@@ -69,6 +87,21 @@ const SortPopup = React.memo(({ items }) => {
       </div>
     </>
   );
-})
+});
+
+SortPopup.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      order: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onClickSortType: PropTypes.func.isRequired,
+  activeSortType: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    order: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default SortPopup;

@@ -4,15 +4,18 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchPizzas } from "./redux/actions/pizzas";
 
 function App() {
   const dispatch = useDispatch();
+  const { category, sortBy } = useSelector(({ filters }) => filters);
 
   useEffect(() => {
-    dispatch(fetchPizzas());
-  }, [dispatch]);
+    if (sortBy && category !== undefined) {
+      dispatch(fetchPizzas(sortBy, category));
+    }
+  }, [dispatch, sortBy, category]);
 
   return (
     <>

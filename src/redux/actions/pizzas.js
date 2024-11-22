@@ -1,7 +1,7 @@
 import axios from "axios";
-import { SET_PIZZAS, FETCH_PIZZAS_FAILED } from "./actionTypes";
+import { SET_PIZZAS, FETCH_PIZZAS_FAILED, SET_LOADED } from "./actionTypes";
 
-// Action Creators
+
 export const setPizzas = (items) => ({
   type: SET_PIZZAS,
   payload: items,
@@ -12,11 +12,23 @@ export const fetchPizzasFailed = (error) => ({
   payload: error,
 });
 
-// Thunk Action Creator
-export const fetchPizzas = () => async (dispatch) => {
+export const setLoaded = (payload) => ({
+  type: SET_LOADED,
+  payload,
+});
+
+
+export const fetchPizzas = (sortBy, category) => async (dispatch) => {
+  dispatch(setLoaded(false));
+
   try {
-    const { data } = await axios.get("http://localhost:3001/pizzas");
+    const categoryParam = category !== null ? `category=${category}` : "";
+    const { type = "popular", order = "desc" } = sortBy || {};
+    const { data } = await axios.get(
+      `http://localhost:3001/pizzas?${categoryParam}&_sort=${type}&_order=${order}`
+    );
     dispatch(setPizzas(data));
+    dispatch(setLoaded(true));
   } catch (error) {
     console.error("Error fetching data:", error);
     dispatch(fetchPizzasFailed(error.message));
