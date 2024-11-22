@@ -5,12 +5,13 @@ import PizzaBlock from "../components/PizzaBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setSortBy } from "../redux/actions/filters";
 import LoadingBlock from "../components/LoadingBlock";
+import PropTypes from "prop-types";
 
 const categoriNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 const sortItems = [
   { name: "popular", type: "popular", order: "desc" },
   { name: "price", type: "price", order: "desc" },
-  { name: "title", type: "name", order: "asc" },
+  { name: "alphabet", type: "name", order: "asc" },
 ];
 
 const Home = () => {
@@ -61,6 +62,24 @@ const Home = () => {
       </div>
     </>
   );
+};
+
+Home.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      category: PropTypes.number,
+      rating: PropTypes.number,
+      types: PropTypes.arrayOf(PropTypes.number),
+      sizes: PropTypes.arrayOf(PropTypes.number),
+    })
+  ),
+  category: PropTypes.number,
+  onSelectCategory: PropTypes.func,
+  onSelectSortType: PropTypes.func,
 };
 
 export default Home;
