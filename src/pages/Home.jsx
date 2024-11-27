@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setSortBy } from "../redux/actions/filters";
 import LoadingBlock from "../components/LoadingBlock";
 import PropTypes from "prop-types";
+import { addPizzaToCart } from "../redux/actions/cart";
 
 const categoriNames = ["Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 const sortItems = [
@@ -16,7 +17,9 @@ const sortItems = [
 
 const Home = () => {
   const dispatch = useDispatch();
+
   const items = useSelector(({ pizzas }) => pizzas.items);
+  const cartItems = useSelector(({ cart }) => cart.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { category, sortBy } = useSelector(({ filters }) => filters);
 
@@ -30,6 +33,13 @@ const Home = () => {
   const onSelectSortType = useCallback(
     (sortOption) => {
       dispatch(setSortBy(sortOption));
+    },
+    [dispatch]
+  );
+
+  const addPizza = useCallback(
+    (obj) => {
+      dispatch(addPizzaToCart(obj));
     },
     [dispatch]
   );
@@ -53,7 +63,12 @@ const Home = () => {
         <div className="content__items">
           {isLoaded && items
             ? items.map((obj) => (
-                <PizzaBlock key={obj.id} {...obj} isLoading={true} />
+                <PizzaBlock
+                  onClickAddCart={addPizza}
+                  key={obj.id}
+                  {...obj}
+                  addedCount={cartItems[obj.id] && cartItems[obj.id].length}
+                />
               ))
             : Array(12)
                 .fill(0)
@@ -80,6 +95,7 @@ Home.propTypes = {
   category: PropTypes.number,
   onSelectCategory: PropTypes.func,
   onSelectSortType: PropTypes.func,
+  addPizza: PropTypes.func,
 };
 
 export default Home;
