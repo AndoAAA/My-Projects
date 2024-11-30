@@ -1,5 +1,3 @@
-import { ADD_PIZZA_CART } from "../actions/actionTypes";
-
 const initialState = {
   items: {},
   totalPrice: 0,
@@ -10,23 +8,28 @@ const getTotalPrice = (items) => items.reduce((sum, obj) => sum + obj.price, 0);
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PIZZA_CART: {
-      const currentItems = state.items[action.payload.id]
-        ? [...state.items[action.payload.id]]
-        : [];
+    case "ADD_PIZZA_CART": {
+      const { id } = action.payload;
+
+      const currentItems = state.items[id] || [];
 
       const updatedItems = {
         ...state.items,
-        [action.payload.id]: [...currentItems, action.payload],
+        [id]: [...currentItems, action.payload],
       };
 
-      const allItems = Object.values(updatedItems).flat();
-      const totalPrice = getTotalPrice(allItems);
+      let totalPrice = 0;
+      let totalCount = 0;
+
+      for (const items of Object.values(updatedItems)) {
+        totalPrice += getTotalPrice(items);
+        totalCount += items.length;
+      }
 
       return {
         ...state,
         items: updatedItems,
-        totalCount: allItems.length,
+        totalCount,
         totalPrice,
       };
     }
