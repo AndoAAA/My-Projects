@@ -1,13 +1,21 @@
 import React from "react";
 import CartItem from "../components/CartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../redux/actions/cart";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
 
   const addedPizzas = Object.keys(items).map((key) => {
     return items[key][0];
   });
+
+  const onClearCart = () => {
+    if (window.confirm("Are you sure you want to clear the cart?")) {
+      dispatch(clearCart());
+    }
+  };
 
   return (
     <>
@@ -85,19 +93,29 @@ const Cart = () => {
                   />
                 </svg>
 
-                <span>Clear Cart</span>
+                <span onClick={onClearCart}>Clear Cart</span>
               </div>
             </div>
             <div className="content__items">
-              {addedPizzas.map((obj) => (
-                <CartItem
-                  name={obj.name}
-                  type={obj.type}
-                  size={obj.size}
-                  price={obj.price}
-                 
-                />
-              ))}
+              {addedPizzas.map((obj) => {
+                const group = items[obj.id];
+                const totalPrice = group.reduce(
+                  (sum, item) => sum + item.price,
+                  0
+                );
+                const totalCount = group.length;
+
+                return (
+                  <CartItem
+                    key={obj.id}
+                    name={obj.name}
+                    type={obj.type}
+                    size={obj.size}
+                    totalPrice={totalPrice}
+                    totalCount={totalCount}
+                  />
+                );
+              })}
             </div>
 
             <div className="cart__bottom">

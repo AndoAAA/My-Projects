@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const CartItem = ({ name, type, size, price }) => {
+const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
+    
   return (
     <>
       <div className="cart__item">
@@ -37,7 +38,7 @@ const CartItem = ({ name, type, size, price }) => {
               />
             </svg>
           </div>
-          <b>1</b>
+          <b>{totalCount}</b>
           <div className="button button--outline button--circle cart__item-count-plus">
             <svg
               width="10"
@@ -58,7 +59,7 @@ const CartItem = ({ name, type, size, price }) => {
           </div>
         </div>
         <div className="cart__item-price">
-          <b>{price} €</b>
+          <b>{totalPrice} €</b>
         </div>
         <div className="cart__item-remove">
           <div className="button button--outline button--circle">
@@ -85,20 +86,21 @@ const CartItem = ({ name, type, size, price }) => {
   );
 };
 
-CartItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-  count: PropTypes.number,
-  price: PropTypes.number,
-  onIncrement: PropTypes.func,
-  onDecrement: PropTypes.func,
-  onRemove: PropTypes.func,
-};
 
-CartItem.defaultProps = {
-  count: 1,
-  price: 0,
-};
+CartItem.propTypes = {
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
+    count: PropTypes.number,
+    price: PropTypes.number,
+    onIncrement: PropTypes.func,
+    onDecrement: PropTypes.func,
+    onRemove: PropTypes.func,
+  };
+  
+  CartItem.defaultProps = {
+    count: 1,
+    price: 0,
+  };
 
 export default CartItem;
