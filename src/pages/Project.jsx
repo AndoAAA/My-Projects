@@ -1,7 +1,7 @@
 import React from "react";
 import BtnGitHub from "../components/btnGitHub/BtnGitHub";
 import { useParams } from "react-router-dom";
-import { projects } from "./../helpers/projectsList";
+import { projects } from "../helpers/projectsList";
 
 export default function Project() {
   const { id } = useParams();
