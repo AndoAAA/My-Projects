@@ -13,13 +13,13 @@ const CartItem = ({
   onRemove,
   onIncrement,
   onDecrement,
-  imageURL,
+  imageUrl,
 }) => {
   return (
     <>
       <div className="cart__item">
         <div className="cart__item-img">
-          <img className="pizza-block__image" src={imageURL} alt={name} />
+          <img className="pizza-block__image" src={imageUrl} alt={name} />
         </div>
         <div className="cart__item-info">
           <h3>{name}</h3>
@@ -103,7 +103,6 @@ const CartItem = ({
   );
 };
 
-
 CartItem.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   uniqueId: PropTypes.string.isRequired,
@@ -115,7 +114,7 @@ CartItem.propTypes = {
   onIncrement: PropTypes.func.isRequired,
   onDecrement: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  imageURL: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
 };
 
 CartItem.defaultProps = {

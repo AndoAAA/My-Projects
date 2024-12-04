@@ -131,6 +131,8 @@ const Cart = () => {
               </div>
               <div className="content__items">
                 {addedPizzas.map((obj) => {
+              
+                  
                   const group = items[obj.id];
                   const totalPrice = group.reduce(
                     (sum, item) => sum + item.price,
@@ -142,7 +144,7 @@ const Cart = () => {
                     <CartItem
                       key={obj.id}
                       name={obj.name}
-                      imageURL={obj.imageURL}
+                      imageUrl={obj.imageUrl}
                       type={obj.type}
                       size={obj.size}
                       totalPrice={totalPrice}
