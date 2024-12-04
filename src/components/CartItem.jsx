@@ -1,17 +1,25 @@
 import PropTypes from "prop-types";
 import React from "react";
+import Button from "../components/Button";
 
-const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
-    
+const CartItem = ({
+  id,
+  uniqueId,
+  name,
+  type,
+  size,
+  totalPrice,
+  totalCount,
+  onRemove,
+  onIncrement,
+  onDecrement,
+  imageURL,
+}) => {
   return (
     <>
       <div className="cart__item">
         <div className="cart__item-img">
-          <img
-            className="pizza-block__image"
-            src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-            alt="Pizza"
-          />
+          <img className="pizza-block__image" src={imageURL} alt={name} />
         </div>
         <div className="cart__item-info">
           <h3>{name}</h3>
@@ -20,7 +28,10 @@ const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
           </p>
         </div>
         <div className="cart__item-count">
-          <div className="button button--outline button--circle cart__item-count-minus">
+          <Button
+            onClick={onDecrement}
+            className="button button--outline button--circle cart__item-count-minus"
+          >
             <svg
               width="10"
               height="10"
@@ -37,9 +48,12 @@ const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
                 fill="#EB5A1E"
               />
             </svg>
-          </div>
+          </Button>
           <b>{totalCount}</b>
-          <div className="button button--outline button--circle cart__item-count-plus">
+          <Button
+            onClick={onIncrement}
+            className="button button--outline button--circle cart__item-count-plus"
+          >
             <svg
               width="10"
               height="10"
@@ -56,13 +70,16 @@ const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
                 fill="#EB5A1E"
               />
             </svg>
-          </div>
+          </Button>
         </div>
         <div className="cart__item-price">
           <b>{totalPrice} €</b>
         </div>
         <div className="cart__item-remove">
-          <div className="button button--outline button--circle">
+          <Button
+            onClick={() => onRemove(id, uniqueId)}
+            className="button button--outline button--circle"
+          >
             <svg
               width="10"
               height="10"
@@ -79,7 +96,7 @@ const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
                 fill="#EB5A1E"
               />
             </svg>
-          </div>
+          </Button>
         </div>
       </div>
     </>
@@ -88,19 +105,23 @@ const CartItem = ({ name, type, size,  totalPrice, totalCount }) => {
 
 
 CartItem.propTypes = {
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    size: PropTypes.number.isRequired,
-    count: PropTypes.number,
-    price: PropTypes.number,
-    onIncrement: PropTypes.func,
-    onDecrement: PropTypes.func,
-    onRemove: PropTypes.func,
-  };
-  
-  CartItem.defaultProps = {
-    count: 1,
-    price: 0,
-  };
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  uniqueId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  imageURL: PropTypes.string.isRequired,
+};
+
+CartItem.defaultProps = {
+  onIncrement: () => {},
+  onDecrement: () => {},
+  onRemove: () => {},
+};
 
 export default CartItem;

@@ -1,13 +1,22 @@
 import React from "react";
 import CartItem from "../components/CartItem";
+import Button from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../redux/actions/cart";
+import {
+  clearCart,
+  removePizza,
+  incrementPizza,
+  decrementPizza,
+} from "../redux/actions/cart";
 import CartEmptyImg from "../assets/img/empty-cart.png";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
+  console.log(items);
+  
 
   const addedPizzas = Object.keys(items).map((key) => {
     return items[key][0];
@@ -15,6 +24,27 @@ const Cart = () => {
 
   const onClearCart = () => {
     if (window.confirm("Are you sure you want to clear the cart?")) {
+      dispatch(clearCart());
+    }
+  };
+
+  const onRemovePizza = (id, uniqueId) => {
+    if (window.confirm("Are you sure you want to remove this item?")) {
+      dispatch(removePizza({ id, uniqueId }));
+    }
+  };
+
+  const onIncrementPizza = (id, uniqueId) => {
+    dispatch(incrementPizza({ id, uniqueId }));
+  };
+
+  const onDecrementPizza = (id, uniqueId) => {
+    dispatch(decrementPizza({ id, uniqueId }));
+  };
+
+  const onPayNow = () => {
+    if (window.confirm(`Confirm payment of ${totalPrice} € ?`)) {
+      alert("Payment successful! Thank you for your order.");
       dispatch(clearCart());
     }
   };
@@ -112,10 +142,14 @@ const Cart = () => {
                     <CartItem
                       key={obj.id}
                       name={obj.name}
+                      imageURL={obj.imageURL}
                       type={obj.type}
                       size={obj.size}
                       totalPrice={totalPrice}
                       totalCount={totalCount}
+                      onRemove={(uniqueId) => onRemovePizza(obj.id, uniqueId)}
+                      onIncrement={() => onIncrementPizza(obj.id)}
+                      onDecrement={() => onDecrementPizza(obj.id)}
                     />
                   );
                 })}
@@ -153,9 +187,9 @@ const Cart = () => {
 
                     <span>Go back</span>
                   </Link>
-                  <div className="button pay-btn">
+                  <Button onClick={onPayNow} className="button pay-btn">
                     <span>Pay now</span>
-                  </div>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -179,6 +213,18 @@ const Cart = () => {
       </div>
     </>
   );
+};
+
+CartItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired,
+  items: PropTypes.object.isRequired,
 };
 
 export default Cart;

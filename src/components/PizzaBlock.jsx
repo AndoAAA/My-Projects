@@ -3,7 +3,15 @@ import React, { useState } from "react";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-const PizzaBlock = ({ id, name, imageUrl, price, types, onClickAddCart, addedCount }) => {
+const PizzaBlock = ({
+  id,
+  name,
+  imageUrl,
+  price,
+  types,
+  onClickAddCart,
+  addedCount,
+}) => {
   const typesNames = ["thin", "traditional"];
   const sizes = [26, 30, 40];
 
@@ -26,14 +34,14 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, onClickAddCart, addedCou
       price,
       type: typesNames[activeType],
       size: sizes[activeSize],
-    }
+    };
     onClickAddCart(obj);
   };
 
   return (
     <>
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <img className="pizza-block__image" src={imageUrl} alt={name} />
         <h4 className="pizza-block__title">{name}</h4>
         <div className="pizza-block__selector">
           <ul>
