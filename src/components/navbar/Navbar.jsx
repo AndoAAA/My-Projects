@@ -2,7 +2,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import logo from "../../assets/images/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 
 const Navbar = () => {
   return (
@@ -39,11 +39,32 @@ const Navbar = () => {
           >
             Logout
           </Button>
-          <FavoriteBorderIcon sx={{ fontSize: 28 }}/>
-          <Typography variant="h6" gutterBottom >Wish List</Typography>
-          <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }}/>
-          <Typography variant="h6" gutterBottom >Shopping Bag</Typography>
+          <FavoriteBorderIcon sx={{ fontSize: 28 }} />
+          <Typography variant="h6">Wish List</Typography>
+          <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+          <Typography variant="h6">Shopping Bag</Typography>
         </Box>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          backgroundColor: "black",
+          padding: 2,
+          gap: 2,
+          flexDirection: { xs: "column", sm: "row" },
+        }}
+      >
+        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
+          50% OFF
+        </Typography>
+        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
+          Free shipping and returns
+        </Typography>
+        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
+          Different payment methods
+        </Typography>
       </Box>
     </>
   );
