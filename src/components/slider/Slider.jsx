@@ -82,7 +82,7 @@ const Slider = () => {
                 minWidth: "12px",
                 borderRadius: "50%",
                 backgroundColor: index === slideIndex ? "black" : "gray",
-                "&:hover": { backgroundColor: "darkgray" },
+                "&:hover": { backgroundColor: "green" },
                 padding: 1,
               }}
             ></Button>
@@ -99,7 +99,7 @@ const Slider = () => {
             zIndex: 1,
             backgroundColor: "rgba(0,0,0,0.5)",
             color: "white",
-            "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
+            "&:hover": { backgroundColor: "green" },
           }}
         >
           <ArrowBackIosNewIcon />
@@ -115,7 +115,7 @@ const Slider = () => {
             zIndex: 1,
             backgroundColor: "rgba(0,0,0,0.5)",
             color: "white",
-            "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
+            "&:hover": { backgroundColor: "green" },
           }}
         >
           <ArrowForwardIosIcon />

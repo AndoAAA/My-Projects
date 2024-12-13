@@ -32,7 +32,7 @@ const NavigateButtons = () => {
                 textTransform: "none",
                 borderColor: "black",
                 color: "black",
-                "&:hover": { backgroundColor: "black", color: "white" },
+                "&:hover": { backgroundColor: "green", color: "white", },
               }}
             >
               {button}
