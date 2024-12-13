@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -102,7 +102,7 @@ const Slider = () => {
             "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
           }}
         >
-          <ArrowBackIosNewIcon/>
+          <ArrowBackIosNewIcon />
         </Button>
         <Button
           onClick={handleNextSlide}
@@ -118,7 +118,7 @@ const Slider = () => {
             "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
           }}
         >
-          <ArrowForwardIosIcon/>
+          <ArrowForwardIosIcon />
         </Button>
       </Box>
     </>
