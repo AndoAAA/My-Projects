@@ -1,6 +1,9 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import React from "react";
 import clothes from "../../assets/images/clothes.jpg";
+import { useDispatch } from "react-redux";
+import { filtredProducts } from "../../features/slices/productSlice";
+import { Link } from "react-router-dom";
 
 const NavigateButtons = () => {
   const buttons = [
@@ -13,6 +16,9 @@ const NavigateButtons = () => {
     "Jackets",
     "Bags",
   ];
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <Container
@@ -26,17 +32,20 @@ const NavigateButtons = () => {
       >
         {buttons.map((button, index) => (
           <Box key={index}>
-            <Button
-              variant="outlined"
-              sx={{
-                textTransform: "none",
-                borderColor: "black",
-                color: "black",
-                "&:hover": { backgroundColor: "green", color: "white", },
-              }}
-            >
-              {button}
-            </Button>
+            <Link to={"/filtredProducts/" + button}>
+              <Button
+                variant="outlined"
+                sx={{
+                  textTransform: "none",
+                  borderColor: "black",
+                  color: "black",
+                  "&:hover": { backgroundColor: "green", color: "white" },
+                }}
+                onClick={() => dispatch(filtredProducts(button))}
+              >
+                {button}
+              </Button>
+            </Link>
           </Box>
         ))}
       </Container>
