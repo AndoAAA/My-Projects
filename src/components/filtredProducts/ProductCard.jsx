@@ -1,23 +1,40 @@
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
+import PropTypes from "prop-types";
 
 const ProductCard = ({ id, name, text, price, colors, img }) => {
   return (
     <>
-      <Card sx={{ maxWidth: 345, boxShadow: 3, borderRadius: 2 }}>
+      <Card
+        sx={{
+          maxWidth: { xs: "100%", sm: 345 },
+          boxShadow: 5,
+          borderRadius: 2,
+        }}
+      >
         <CardMedia
           CardMedia
           component="img"
-          height="200"
+          width="100%"
+          height="100%"
           image={img}
           alt={name}
           sx={{ objectFit: "cover" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            id={`product-title-${id}`}
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
             {name}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+          <Typography
+            id={`product-desc-${id}`}
+            variant="body2"
+            sx={{ color: "text.secondary", mb: 1 }}
+          >
             {text}
           </Typography>
           <Typography variant="h6" sx={{ fontWeight: "bold", color: "green" }}>
@@ -41,6 +58,23 @@ const ProductCard = ({ id, name, text, price, colors, img }) => {
       </Card>
     </>
   );
+};
+
+ProductCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  colors: PropTypes.arrayOf(PropTypes.string),
+  img: PropTypes.string,
+};
+
+ProductCard.defaultProps = {
+  img: "placeholder-image-url",
+  name: "Unknown Product",
+  text: "No description available.",
+  price: "0.00",
+  colors: [],
 };
 
 export default ProductCard;

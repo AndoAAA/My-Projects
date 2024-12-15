@@ -5,15 +5,14 @@ import { useParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
 const FiltredProducts = () => {
-  const products = useSelector((state) => state.products.filtredProducts);
-  console.log("prducts", products);
-
-  const { type } = useParams();
-  console.log("params", type);
+  const products = useSelector((state) => state.products.filtredProducts || []);
+  const { type = "Products" } = useParams();
+  console.log("Filtered products:", products);
+  console.log("Current type param:", type);
 
   return (
     <>
-      <Container>
+      <Container aria-label={`Products filtered by ${type}`}>
         <Box sx={{ marginBottom: 4 }}>
           <Typography
             variant="h1"
@@ -22,13 +21,23 @@ const FiltredProducts = () => {
               fontWeight: "600",
               textTransform: "capitalize",
               marginBottom: 2,
+              textAlign: "center",
             }}
           >
             {type || "Products"}
           </Typography>
         </Box>
         {products.length > 0 ? (
-          <Grid2 container spacing={4}>
+          <Grid2
+            container
+            spacing={4}
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+             
+            }}
+          >
             {products.map((product) => (
               <Grid2 item xs={12} sm={6} md={4} key={product.id}>
                 <ProductCard
@@ -44,12 +53,12 @@ const FiltredProducts = () => {
           </Grid2>
         ) : (
           <Typography variant="h6" sx={{ textAlign: "center" }}>
-            No products available for "{type}".
+            No products available for "{type ? ` for "${type}"` : "."}".
           </Typography>
         )}
       </Container>
     </>
   );
-}
+};
 
 export default FiltredProducts;
