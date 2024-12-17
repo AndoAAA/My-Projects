@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
 const SingleProduct = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products.singleProduct);
   const { id } = useParams();
 
@@ -34,7 +34,7 @@ const SingleProduct = () => {
       return;
     }
 
-    dispatch(
+    dispatch();
     //   addToCart({
     //     id: product.id,
     //     name: product.name,
@@ -43,7 +43,6 @@ const SingleProduct = () => {
     //     size: selectedSize,
     //     color: selectedColor,
     //   })
-    );
     alert("Product added to cart!");
   };
   return (
