@@ -51,7 +51,7 @@ const NavigateButtons = () => {
       </Container>
       <Box
         sx={{
-          backgroundColor: "green",
+          backgroundColor: "black",
           maxWidth: "55%",
           marginX: "auto",
           textAlign: "center",

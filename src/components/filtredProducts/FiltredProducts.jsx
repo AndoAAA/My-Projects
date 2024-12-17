@@ -46,7 +46,7 @@ const FiltredProducts = () => {
                   text={product.text}
                   price={product.price}
                   img={product.img}
-                  colors={product.colors}
+                  colors={product.color}
                 />
               </Grid2>
             ))}

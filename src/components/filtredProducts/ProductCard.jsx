@@ -1,8 +1,13 @@
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { singleProduct } from "../../features/slices/productSlice";
 
 const ProductCard = ({ id, name, text, price, colors, img }) => {
+  const dispatch = useDispatch();
+  const { type } = useParams();
   return (
     <>
       <Card
@@ -12,15 +17,22 @@ const ProductCard = ({ id, name, text, price, colors, img }) => {
           borderRadius: 2,
         }}
       >
-        <CardMedia
-          CardMedia
-          component="img"
-          width="100%"
-          height="100%"
-          image={img}
-          alt={name}
-          sx={{ objectFit: "cover" }}
-        />
+        <Link
+          to={`/filtredProducts/${type}/` + id}
+          aria-label={`View details of ${name}`}
+          role="link"
+        >
+          <CardMedia
+            CardMedia
+            component="img"
+            width="100%"
+            height="100%"
+            image={img}
+            alt={name}
+            sx={{ objectFit: "cover" }}
+            onClick={() => dispatch(singleProduct(id))}
+          />
+        </Link>
         <CardContent>
           <Typography
             id={`product-title-${id}`}
@@ -37,22 +49,35 @@ const ProductCard = ({ id, name, text, price, colors, img }) => {
           >
             {text}
           </Typography>
-          <Typography variant="h6" sx={{ fontWeight: "bold", color: "green" }}>
-            {price} $
-          </Typography>
-          <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-            {colors?.map((color, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: "50%",
-                  backgroundColor: color,
-                  border: "1px solid #ddd",
-                }}
-              ></Box>
-            ))}
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", color: "green" }}
+            >
+              {price} $
+            </Typography>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              {colors?.map((color, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: "50%",
+                    backgroundColor: color,
+                    border: "1px solid #ddd",
+                    cursor: "pointer",
+                  }}
+                ></Box>
+              ))}
+            </Box>
           </Box>
         </CardContent>
       </Card>
