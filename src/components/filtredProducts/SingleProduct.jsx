@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { addToCard } from "../../features/slices/cardSlice";
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
@@ -28,23 +29,28 @@ const SingleProduct = () => {
   const handleColorChange = (event) => {
     setSelectedColor(event.target.value);
   };
+
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {
       alert("Please select a size and color before adding to the cart.");
       return;
     }
 
-    dispatch();
-    //   addToCart({
-    //     id: product.id,
-    //     name: product.name,
-    //     img: product.img,
-    //     price: product.price,
-    //     size: selectedSize,
-    //     color: selectedColor,
-    //   })
+    dispatch(
+      addToCard({
+        id: product.id,
+        name: product.name,
+        img: product.img,
+        price: product.price,
+        size: selectedSize,
+        color: selectedColor,
+        amount: 1,
+      })
+    );
+
     alert("Product added to cart!");
   };
+
   return (
     <Container>
       {product ? (
@@ -105,6 +111,7 @@ const SingleProduct = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  disabled={!selectedSize || !selectedColor}
                   onClick={handleAddToCart}
                 >
                   Add to Cart

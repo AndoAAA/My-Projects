@@ -9,8 +9,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/filtredProducts/:type" element={<FiltredProducts/>}/>
-        <Route path="/filtredProducts/:type/:id" element={<SingleProduct/>}/>
+        <Route path="/filtredProducts/:type" element={<FiltredProducts />} />
+        <Route path="/filtredProducts/:type/:id" element={<SingleProduct />} />
       </Routes>
     </>
   );
