@@ -6,6 +6,7 @@ import {
   Typography,
   IconButton,
   Tooltip,
+  Container,
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
@@ -34,23 +35,16 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      <Box
+      <Container
         sx={{
-          flexGrow: 1,
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          padding: 2,
           flexDirection: { xs: "column", sm: "row" },
-          gap: 2,
         }}
       >
-        <img
-          src={logo}
-          alt="Store Logo"
-          style={{ maxHeight: 50 }}
-        />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box component="img" src={logo} alt="Brand Logo" />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
           <Button
             size="large"
             sx={{
@@ -67,7 +61,12 @@ const Navbar = () => {
               <FavoriteBorderIcon sx={{ fontSize: 28 }} />
             </IconButton>
           </Tooltip>
-          <Typography variant="h6">Wish List</Typography>
+          <Typography
+            variant="h6"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Wish List
+          </Typography>
           <Tooltip title="View Shopping Bag">
             <Box sx={{ position: "relative" }}>
               <IconButton
@@ -97,9 +96,14 @@ const Navbar = () => {
               )}
             </Box>
           </Tooltip>
-          <Typography variant="h6">Shopping Bag</Typography>
+          <Typography
+            variant="h6"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Shopping Bag
+          </Typography>
         </Box>
-      </Box>
+      </Container>
 
       <Box
         sx={{
@@ -112,15 +116,19 @@ const Navbar = () => {
           flexDirection: { xs: "column", sm: "row" },
         }}
       >
-        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
-          50% OFF
-        </Typography>
-        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
-          Free shipping and returns
-        </Typography>
-        <Typography variant="h6" sx={{ color: "white", textAlign: "center" }}>
-          Different payment methods
-        </Typography>
+        {[
+          "50% OFF",
+          "Free shipping and returns",
+          "Different payment methods",
+        ].map((text, index) => (
+          <Typography
+            key={index}
+            variant="h6"
+            sx={{ color: "white", textAlign: "center" }}
+          >
+            {text}
+          </Typography>
+        ))}
       </Box>
       <Card open={open} setOpen={setOpen} />
     </>

@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import {removeProduct} from "../../features/slices/cardSlice"
+import { removeProduct } from "../../features/slices/cardSlice";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -151,19 +151,27 @@ const Card = ({ open, setOpen }) => {
           </List>
         </Dialog>
       ) : (
-        <Box sx={{ textAlign: "center", mt: 5 }}>
-          <Typography variant="h6" gutterBottom>
-            Your bag is empty
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClose}
-            sx={{ mt: 2 }}
-          >
-            Continue Shopping
-          </Button>
-        </Box>
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+          aria-labelledby="cart-dialog-title"
+        >
+          <Box sx={{ textAlign: "center", mt: 5 }}>
+            <Typography variant="h6" gutterBottom>
+              Your bag is empty
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClose}
+              sx={{ mt: 2,  backgroundColor: "black", }}
+            >
+              Continue Shopping
+            </Button>
+          </Box>
+        </Dialog>
       )}
     </>
   );
