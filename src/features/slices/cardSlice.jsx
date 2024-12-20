@@ -26,6 +26,7 @@ export const cardSlice = createSlice({
         } else {
           state.card.push({
             id: product.id,
+            img: product.img,
             price: product.price,
             size: product.size,
             amount: 1,
@@ -33,15 +34,35 @@ export const cardSlice = createSlice({
             name: product.name,
             color: product.color,
           });
-          state.totalAmount ++;
+          state.totalAmount++;
           state.totalPrice += product.price;
         }
       } catch (error) {
         return error;
       }
     },
+    removeProduct(state, action) {
+      const product = action.payload;
+      try {
+        const index = state.card.findIndex(
+          (item) =>
+            item.id === product.id &&
+            item.size === product.size &&
+            item.color === product.color
+        );
+
+        if (index !== -1) {
+          state.totalAmount -= state.card[index].amount;
+          state.totalPrice -= state.card[index].totalPrice;
+
+          state.card.splice(index, 1);
+        }
+      } catch (error) {
+        console.error("Error removing product:", error);
+      }
+    },
   },
 });
 
-export const { addToCard } = cardSlice.actions;
+export const { addToCard, removeProduct } = cardSlice.actions;
 export default cardSlice.reducer;

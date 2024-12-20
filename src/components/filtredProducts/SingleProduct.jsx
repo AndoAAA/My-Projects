@@ -41,6 +41,7 @@ const SingleProduct = () => {
         id: product.id,
         name: product.name,
         img: product.img,
+        text: product.text,
         price: product.price,
         size: selectedSize,
         color: selectedColor,
@@ -91,7 +92,17 @@ const SingleProduct = () => {
               <Select value={selectedColor} onChange={handleColorChange}>
                 {product.color?.map((color, index) => (
                   <MenuItem key={index} value={color}>
-                    {color}
+                    <Box
+                      key={index}
+                      sx={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        backgroundColor: color,
+                        border: "1px solid #ddd",
+                        cursor: "pointer",
+                      }}
+                    ></Box>
                   </MenuItem>
                 )) || <MenuItem disabled>No colors available</MenuItem>}
               </Select>

@@ -1,10 +1,27 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import React from "react";
+import {
+  AppBar,
+  Box,
+  Button,
+  Toolbar,
+  Typography,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import Card from "../card/Card";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const totalAmount = useSelector((state) => state.card.totalAmount);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -16,6 +33,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
+
       <Box
         sx={{
           flexGrow: 1,
@@ -27,8 +45,12 @@ const Navbar = () => {
           gap: 2,
         }}
       >
-        <img src={logo} alt="store" />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <img
+          src={logo}
+          alt="Store Logo"
+          style={{ maxHeight: 50 }}
+        />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Button
             size="large"
             sx={{
@@ -39,12 +61,46 @@ const Navbar = () => {
           >
             Logout
           </Button>
-          <FavoriteBorderIcon sx={{ fontSize: 28 }} />
+
+          <Tooltip title="View Wish List">
+            <IconButton aria-label="View Wish List">
+              <FavoriteBorderIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+          </Tooltip>
           <Typography variant="h6">Wish List</Typography>
-          <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+          <Tooltip title="View Shopping Bag">
+            <Box sx={{ position: "relative" }}>
+              <IconButton
+                aria-label="View Shopping Bag"
+                onClick={handleOpen}
+                sx={{ color: "black" }}
+              >
+                <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+              {totalAmount > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    backgroundColor: "red",
+                    color: "white",
+                    borderRadius: "50%",
+                    padding: "0.25rem",
+                    fontSize: "0.75rem",
+                    minWidth: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  {totalAmount}
+                </Box>
+              )}
+            </Box>
+          </Tooltip>
           <Typography variant="h6">Shopping Bag</Typography>
         </Box>
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -66,6 +122,7 @@ const Navbar = () => {
           Different payment methods
         </Typography>
       </Box>
+      <Card open={open} setOpen={setOpen} />
     </>
   );
 };
