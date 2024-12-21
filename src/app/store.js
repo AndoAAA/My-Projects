@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import slideReducer from "../features/slices/sliderSlice";
 import productReducer from "../features/slices/productSlice";
-import cardReducer from "../features/slices/cardSlice"
+import cardReducer from "../features/slices/cardSlice";
+import authReducer from "../features/slices/authSlice";
 
 
 export const store = configureStore({
@@ -9,5 +10,6 @@ export const store = configureStore({
         slider: slideReducer,
         products: productReducer,
         card: cardReducer,
+        user:authReducer,
     }
 })

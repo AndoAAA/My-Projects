@@ -43,6 +43,7 @@ const ProductSectionItem = ({
     <>
       <Card
         sx={{
+          position:"relative",
           maxWidth: 345,
           "&:hover": {
             boxShadow: 4,
@@ -51,7 +52,25 @@ const ProductSectionItem = ({
           },
         }}
       >
-        <CardMedia sx={{ height: 500 }} image={img} title={name} />
+         <Box
+          sx={{
+            position: "absolute",
+            top: "30px",
+            right: "0px",
+            color: "red",
+            fontWeight: "bold",
+            fontSize:'30px',
+            transform:"rotate(-45deg)"
+          }}
+        >
+          SALE%
+        </Box>
+        <CardMedia
+          sx={{ height: 500 }}
+          image={img}
+          title={name}
+          alt={`Image of ${name}`}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
@@ -60,8 +79,8 @@ const ProductSectionItem = ({
             {text}
           </Typography>
           <Typography variant="body2" sx={{ fontWeight: "bold", mt: 1 }}>
-          Price: ${price.toFixed(2)}
-        </Typography>
+            Price: ${price.toFixed(2)}
+          </Typography>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               Size: {defaultSize}
@@ -89,7 +108,7 @@ const ProductSectionItem = ({
             variant="outlined"
             onClick={handleAddToCart}
             title={`Add ${name} to cart`}
-            sx={{color:"black", border:"1px solid black"}}
+            sx={{ color: "black", border: "1px solid black" }}
           >
             Add To Cart
           </Button>

@@ -7,20 +7,29 @@ import {
   IconButton,
   Tooltip,
   Container,
+  Avatar,
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Card from "../card/Card";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../features/slices/authSlice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const totalAmount = useSelector((state) => state.card.totalAmount);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const { name, image } = user;
 
   const handleOpen = () => {
     setOpen(true);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -102,6 +111,22 @@ const Navbar = () => {
           >
             Shopping Bag
           </Typography>
+        </Box>
+        <Box sx={{ display: "flex", gap:1 }} onClick={handleLogout}>
+          {image ? (
+            <Avatar src={image} alt="avatar" sx={{ width: 24, height: 24 }} />
+          ) : (
+            <Avatar
+              src="/path/to/default/avatar.png"
+              alt="default avatar"
+              sx={{ width: 24, height: 24 }}
+            />
+          )}
+          <Tooltip>
+            <Typography>
+            Hi {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
+            </Typography>
+          </Tooltip>
         </Box>
       </Container>
 
