@@ -8,6 +8,7 @@ import {
   Tooltip,
   Container,
   Avatar,
+  Badge,
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
@@ -15,7 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Card from "../card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/slices/authSlice";
+import { logout, login } from "../../features/slices/authSlice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -24,13 +25,25 @@ const Navbar = () => {
   const user = useSelector((state) => state.user.user);
   const { name, image } = user;
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleLogout = () => dispatch(logout());
 
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+  const renderBadge = (count) => (
+    <Badge
+      badgeContent={count}
+      color="error"
+      overlap="circular"
+      sx={{
+        "& .MuiBadge-badge": {
+          minWidth: 20,
+          height: 20,
+          fontSize: "0.75rem",
+        },
+      }}
+    >
+      <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+    </Badge>
+  );
 
   return (
     <>
@@ -54,77 +67,54 @@ const Navbar = () => {
       >
         <Box component="img" src={logo} alt="Brand Logo" />
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <Button
-            size="large"
-            sx={{
-              color: "black",
-              fontSize: 18,
-              "&:hover": { backgroundColor: "#f0f0f0" },
-            }}
-          >
-            Logout
-          </Button>
+          <Tooltip title="Logout">
+            <Button
+              size="large"
+              onClick={handleLogout}
+              sx={{
+                color: "black",
+                fontSize: 18,
+                "&:hover": { backgroundColor: "#f0f0f0" },
+              }}
+            >
+              Logout
+            </Button>
+          </Tooltip>
 
           <Tooltip title="View Wish List">
             <IconButton aria-label="View Wish List">
               <FavoriteBorderIcon sx={{ fontSize: 28 }} />
             </IconButton>
           </Tooltip>
-          <Typography
-            variant="h6"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Wish List
-          </Typography>
+
           <Tooltip title="View Shopping Bag">
-            <Box sx={{ position: "relative" }}>
-              <IconButton
-                aria-label="View Shopping Bag"
-                onClick={handleOpen}
-                sx={{ color: "black" }}
-              >
-                <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-              {totalAmount > 0 && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    backgroundColor: "red",
-                    color: "white",
-                    borderRadius: "50%",
-                    padding: "0.25rem",
-                    fontSize: "0.75rem",
-                    minWidth: 20,
-                    textAlign: "center",
-                  }}
-                >
-                  {totalAmount}
-                </Box>
-              )}
-            </Box>
+            <IconButton
+              aria-label="View Shopping Bag"
+              onClick={handleOpen}
+              sx={{ color: "black" }}
+            >
+              {renderBadge(totalAmount)}
+            </IconButton>
           </Tooltip>
-          <Typography
-            variant="h6"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Shopping Bag
-          </Typography>
         </Box>
-        <Box sx={{ display: "flex", gap:1 }} onClick={handleLogout}>
-          {image ? (
-            <Avatar src={image} alt="avatar" sx={{ width: 24, height: 24 }} />
-          ) : (
-            <Avatar
-              src="/path/to/default/avatar.png"
-              alt="default avatar"
-              sx={{ width: 24, height: 24 }}
-            />
-          )}
-          <Tooltip>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            cursor: "pointer",
+          }}
+          onClick={handleLogout}
+        >
+          <Avatar
+            src={image || "/path/to/default/avatar.png"}
+            alt={name || "User"}
+            sx={{ width: 32, height: 32 }}
+          />
+          <Tooltip title={`Hi ${name || "User"}`}>
             <Typography>
-            Hi {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
+              Hi {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
             </Typography>
           </Tooltip>
         </Box>

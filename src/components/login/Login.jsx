@@ -2,40 +2,52 @@ import * as React from "react";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { SignInPage } from "@toolpad/core/SignInPage";
 import { useTheme } from "@mui/material/styles";
-import { login } from "../../features/slices/authSlice";
-import { useDispatch } from "react-redux";
 
-const providers = [{ id: "credentials", name: "Email and password" }];
+const providers = [{ id: "credentials", name: "Email and Password" }];
 
-export default function Login() {
+const validateCredentials = (email, password) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordMinLength = 6;
+
+  if (!emailRegex.test(email)) {
+    return { isValid: false, error: "Invalid email format." };
+  }
+  if (password.length < passwordMinLength) {
+    return {
+      isValid: false,
+      error: `Password must be at least ${passwordMinLength} characters long.`,
+    };
+  }
+  return { isValid: true };
+};
+
+const signIn = async (provider, formData) => {
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  const { isValid, error } = validateCredentials(email, password);
+  if (!isValid) {
+    alert(`Error: ${error}`);
+    return { type: "CredentialsSignin", error };
+  }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`Signed in with provider: ${provider.name}`);
+      resolve({ type: "CredentialsSignin", error: null });
+    }, 300);
+  });
+};
+
+export default function CredentialsSignInPage() {
   const theme = useTheme();
-  const dispatch = useDispatch();
-
-  const signIn = async (provider, formData) => {
-    const email = formData?.get("email");
-    const password = formData?.get("password");
-
-    dispatch(login({ name: email, password }));
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const error = email && password ? null : "Invalid credentials.";
-        resolve({
-          type: "CredentialsSignin",
-          error: error,
-        });
-      }, 300);
-    });
-  };
 
   return (
     <AppProvider theme={theme}>
       <SignInPage
         signIn={signIn}
         providers={providers}
-        slotProps={{
-          emailField: { autoFocus: false },
-        }}
+        slotProps={{ emailField: { autoFocus: false } }}
       />
     </AppProvider>
   );
