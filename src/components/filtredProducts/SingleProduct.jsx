@@ -120,8 +120,12 @@ const SingleProduct = () => {
             <Tooltip title="Item will not be added if it already exists in the cart.">
               <span>
                 <Button
-                  variant="contained"
-                  color="primary"
+                  variant="outlined"
+                  sx={{
+                    border: "1px solid black",
+                    color: "black",
+                    "&:hover": { backgroundColor: "black", color: "white" },
+                  }}
                   disabled={!selectedSize || !selectedColor}
                   onClick={handleAddToCart}
                 >

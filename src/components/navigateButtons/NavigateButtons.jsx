@@ -39,7 +39,7 @@ const NavigateButtons = () => {
                   textTransform: "none",
                   borderColor: "black",
                   color: "black",
-                  "&:hover": { backgroundColor: "green", color: "white" },
+                  "&:hover": { backgroundColor: "black", color: "white" },
                 }}
                 onClick={() => dispatch(filtredProducts(button))}
               >

@@ -1,7 +1,6 @@
 import {
   AppBar,
   Box,
-  Button,
   Toolbar,
   Typography,
   IconButton,
@@ -16,7 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Card from "../card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, login } from "../../features/slices/authSlice";
+import { logout } from "../../features/slices/authSlice";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -26,7 +25,6 @@ const Navbar = () => {
   const { name, image } = user;
 
   const handleOpen = () => setOpen(true);
-  const handleLogout = () => dispatch(logout());
 
   const renderBadge = (count) => (
     <Badge
@@ -67,20 +65,6 @@ const Navbar = () => {
       >
         <Box component="img" src={logo} alt="Brand Logo" />
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <Tooltip title="Logout">
-            <Button
-              size="large"
-              onClick={handleLogout}
-              sx={{
-                color: "black",
-                fontSize: 18,
-                "&:hover": { backgroundColor: "#f0f0f0" },
-              }}
-            >
-              Logout
-            </Button>
-          </Tooltip>
-
           <Tooltip title="View Wish List">
             <IconButton aria-label="View Wish List">
               <FavoriteBorderIcon sx={{ fontSize: 28 }} />
@@ -96,28 +80,32 @@ const Navbar = () => {
               {renderBadge(totalAmount)}
             </IconButton>
           </Tooltip>
-        </Box>
-
-        <Box
+          <Box
           sx={{
             display: "flex",
             alignItems: "center",
             gap: 1,
             cursor: "pointer",
           }}
-          onClick={handleLogout}
         >
           <Avatar
             src={image || "/path/to/default/avatar.png"}
             alt={name || "User"}
             sx={{ width: 32, height: 32 }}
           />
-          <Tooltip title={`Hi ${name || "User"}`}>
+          <Tooltip
+            onClick={() => dispatch(logout())}
+            content="Sign Out"
+            title={`Hi ${name || "User"}`}
+          >
             <Typography>
               Hi {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
             </Typography>
           </Tooltip>
         </Box>
+        </Box>
+
+        
       </Container>
 
       <Box
