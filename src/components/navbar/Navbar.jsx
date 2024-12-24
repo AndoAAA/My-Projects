@@ -81,31 +81,29 @@ const Navbar = () => {
             </IconButton>
           </Tooltip>
           <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            cursor: "pointer",
-          }}
-        >
-          <Avatar
-            src={image || "/path/to/default/avatar.png"}
-            alt={name || "User"}
-            sx={{ width: 32, height: 32 }}
-          />
-          <Tooltip
-            onClick={() => dispatch(logout())}
-            content="Sign Out"
-            title={`Hi ${name || "User"}`}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              cursor: "pointer",
+            }}
           >
-            <Typography>
-              Hi {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
-            </Typography>
-          </Tooltip>
+            <Avatar
+              src={image || "/path/to/default/avatar.png"}
+              alt="avatar"
+              sx={{ width: 32, height: 32 }}
+            />
+            <Tooltip
+              onClick={() => dispatch(logout())}
+              title={`Hi ${name || "User"}`}
+            >
+              <Typography>
+                Hi{" "}
+                {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
+              </Typography>
+            </Tooltip>
+          </Box>
         </Box>
-        </Box>
-
-        
       </Container>
 
       <Box
