@@ -3,62 +3,62 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cardSlice = createSlice({
   name: "card",
   initialState: {
-    card: [],
-    amount: 0,
-    totalAmount: 0,
-    totalPrice: 0,
+    card: [], // List of products in the cart
+    totalAmount: 0, // Total quantity of items in the cart
+    totalPrice: 0, // Total price of items in the cart
   },
   reducers: {
     addToCard(state, action) {
       const product = action.payload;
-      try {
-        const exist = state.card.find(
-          (item) =>
-            item.id === product.id &&
-            item.size === product.size &&
-            item.color === product.color
-        );
-        if (exist) {
-          exist.amount++;
-          exist.totalPrice += product.price;
-          state.totalAmount++;
-          state.totalPrice += product.price;
-        } else {
-          state.card.push({
-            id: product.id,
-            img: product.img,
-            price: product.price,
-            size: product.size,
-            amount: 1,
-            totalPrice: product.price,
-            name: product.name,
-            color: product.color,
-          });
-          state.totalAmount++;
-          state.totalPrice += product.price;
-        }
-      } catch (error) {
-        return error;
+
+      // Find if the product already exists in the cart
+      const exist = state.card.find(
+        (item) =>
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
+      );
+
+      if (exist) {
+        
+        exist.amount++;
+        exist.totalPrice += product.price;
+        state.totalAmount++;
+        state.totalPrice += product.price;
+      } else {
+
+        state.card.push({
+          id: product.id,
+          img: product.img,
+          price: product.price,
+          size: product.size,
+          amount: 1,
+          totalPrice: product.price,
+          name: product.name,
+          color: product.color,
+        });
+        state.totalAmount++;
+        state.totalPrice += product.price;
       }
     },
+
     removeProduct(state, action) {
       const product = action.payload;
-      try {
-        const index = state.card.findIndex(
-          (item) =>
-            item.id === product.id &&
-            item.size === product.size &&
-            item.color === product.color
-        );
 
-        if (index !== -1) {
-          state.totalAmount -= state.card[index].amount;
-          state.totalPrice -= state.card[index].totalPrice;
+      const index = state.card.findIndex(
+        (item) =>
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
+      );
 
-          state.card.splice(index, 1);
-        }
-      } catch (error) {
-        console.error("Error removing product:", error);
+      if (index !== -1) {
+        const productToRemove = state.card[index];
+        
+        state.totalAmount -= productToRemove.amount;
+        state.totalPrice -= productToRemove.totalPrice;
+
+        state.card.splice(index, 1);
       }
     },
   },

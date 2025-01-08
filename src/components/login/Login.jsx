@@ -35,17 +35,23 @@ const Login = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
+      console.log(file);
       if (!file.type.startsWith("image/")) {
         setError("Please upload a valid image file.");
         return;
       }
+
       if (file.size > 2 * 1024 * 1024) {
         setError("Image size should not exceed 2MB.");
         return;
       }
-      setPreview(URL.createObjectURL(file));
+      const previewUrl = URL.createObjectURL(file);
+      console.log(previewUrl);
+      setPreview(previewUrl);
       setValues({ ...values, image: file });
+      setError("");
     }
   };
 
@@ -76,18 +82,12 @@ const Login = () => {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    try {
-      await dispatch(login(values)).unwrap();
-      setValues({ name: "", password: "", image: "" });
-      setPreview(null);
-      setError("");
-      alert("You have successfully logged in");
-      window.location.href = "/";
-    } catch (err) {
-      setError("Failed to log in. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(login(values));
+    setValues({ name: "", password: "", image: "" });
+    setPreview(null);
+    setError("");
+    alert("You have successfully logged in");
+    window.location.href = "/";
   };
 
   return (
@@ -146,7 +146,6 @@ const Login = () => {
               size="small"
               value={values.password}
               onChange={handleChange}
-              helperText={error}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -178,12 +177,14 @@ const Login = () => {
               accept="image/*"
               onChange={handleImageChange}
               variant="outlined"
-              disabled={isLoading}
+              disabled={false}
+              helperText={error}
               InputProps={{
                 sx: { padding: "8px", fontSize: 14, borderRadius: 1 },
               }}
             />
           </FormControl>
+
           {preview && !error && (
             <img
               src={preview}
@@ -200,7 +201,7 @@ const Login = () => {
             />
           )}
 
-          {error && (
+          {error && !error.includes("Image") && (
             <Typography
               variant="body2"
               sx={{

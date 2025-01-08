@@ -26,9 +26,10 @@ const Navbar = () => {
   const totalAmount = useSelector((state) => state.card.totalAmount);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const {name, image} = user;
+  const { name, image } = user || {};
+  console.log(user);
   
-  
+
   const handleOpen = () => setOpen(true);
 
   const handleMenu = (event) => {
@@ -110,7 +111,14 @@ const Navbar = () => {
                 sx={{ width: 32, height: 32, cursor: "pointer" }}
                 onClick={handleMenu}
               />
-              <Typography>
+              <Typography
+                sx={{
+                  marginLeft: 1,
+                  color: "black",
+                  fontSize: "0.875rem",
+                  fontWeight: "500",
+                }}
+              >
                 {name}
               </Typography>
               <Menu
