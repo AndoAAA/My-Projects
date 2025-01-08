@@ -8,23 +8,41 @@ import {
   Container,
   Avatar,
   Badge,
+  Button,
+  MenuItem,
+  Menu,
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Card from "../card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/slices/authSlice";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const totalAmount = useSelector((state) => state.card.totalAmount);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const { name, image } = user;
-
+  const {name, image} = user;
+  
+  
   const handleOpen = () => setOpen(true);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
+  };
 
   const renderBadge = (count) => (
     <Badge
@@ -42,7 +60,6 @@ const Navbar = () => {
       <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
     </Badge>
   );
-
   return (
     <>
       <AppBar position="static">
@@ -58,51 +75,68 @@ const Navbar = () => {
       <Container
         sx={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-between",
           alignItems: "center",
           flexDirection: { xs: "column", sm: "row" },
         }}
       >
-        <Box component="img" src={logo} alt="Brand Logo" />
+        <NavLink to="/">
+          <Box
+            component="img"
+            src={logo}
+            alt="Brand Logo"
+            sx={{ width: { xs: "100px", sm: "150px" } }}
+          />
+        </NavLink>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <Tooltip title="View Wish List">
-            <IconButton aria-label="View Wish List">
-              <FavoriteBorderIcon sx={{ fontSize: 28 }} />
-            </IconButton>
-          </Tooltip>
-
           <Tooltip title="View Shopping Bag">
             <IconButton
               aria-label="View Shopping Bag"
               onClick={handleOpen}
-              sx={{ color: "black" }}
+              sx={{
+                color: "black",
+                "&:hover": { color: "white", backgroundColor: "black" },
+                transition: "color 0.3s, background-color 0.3s",
+              }}
             >
               {renderBadge(totalAmount)}
             </IconButton>
           </Tooltip>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              cursor: "pointer",
-            }}
-          >
-            <Avatar
-              src={image || "/path/to/default/avatar.png"}
-              alt="avatar"
-              sx={{ width: 32, height: 32 }}
-            />
-            <Tooltip
-              onClick={() => dispatch(logout())}
-              title={`Hi ${name || "User"}`}
-            >
+          {user ? (
+            <>
+              <Avatar
+                src={image || "https://via.placeholder.com/32"}
+                alt="avatar"
+                sx={{ width: 32, height: 32, cursor: "pointer" }}
+                onClick={handleMenu}
+              />
               <Typography>
-                Hi{" "}
-                {name ? name.charAt(0).toUpperCase() + name.slice(1) : "User"}
+                {name}
               </Typography>
-            </Tooltip>
-          </Box>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleLogout}>Log out</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <NavLink to="/login">
+              <Button
+                variant="text"
+                sx={{
+                  textTransform: "none",
+                  borderColor: "black",
+                  color: "black",
+                  "&:hover": { backgroundColor: "black", color: "white" },
+                  transition: "background-color 0.3s, color 0.3s",
+                }}
+              >
+                Log in
+              </Button>
+            </NavLink>
+          )}
         </Box>
       </Container>
 

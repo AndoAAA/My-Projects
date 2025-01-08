@@ -8,31 +8,29 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { login } from "../../features/slices/authSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [values, setValues] = React.useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [values, setValues] = useState({
     name: "",
     password: "",
     image: "",
   });
-  const [preview, setPreview] = React.useState(null);
-  const [error, setError] = React.useState("");
+  const [preview, setPreview] = useState(null);
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    if (name === "name" || name === "password") {
-      setError("");
-    }
+    if (error) setError("");
   };
 
   const handleImageChange = (e) => {
@@ -51,23 +49,45 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validateForm = () => {
     if (!values.name || !values.password) {
       setError("All fields are required.");
-      return;
+      return false;
     }
+    if (!/^[A-Za-z]{4,10}$/.test(values.name)) {
+      setError("Username must be 4-10 alphabetic characters.");
+      return false;
+    }
+    if (
+      !/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,10}$/.test(
+        values.password
+      )
+    ) {
+      setError(
+        "Password must be 4-10 characters, include a number, a letter, and a special character."
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
     setIsLoading(true);
-    dispatch(login({ values }))
-      .then(() => {
-        setIsLoading(false);
-        setValues({ name: "", password: "", image: "" });
-        setPreview(null);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setError("Failed to log in. Please try again.");
-      });
+    try {
+      await dispatch(login(values)).unwrap();
+      setValues({ name: "", password: "", image: "" });
+      setPreview(null);
+      setError("");
+      alert("You have successfully logged in");
+      window.location.href = "/";
+    } catch (err) {
+      setError("Failed to log in. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -96,7 +116,7 @@ const Login = () => {
             mb: 3,
             textAlign: "center",
             fontWeight: "bold",
-            color: "primary.main",
+            color: "black",
             fontSize: "2rem",
           }}
         >
@@ -108,7 +128,6 @@ const Login = () => {
               id="name"
               label="Name"
               name="name"
-              type="name"
               size="small"
               value={values.name}
               onChange={handleChange}
@@ -127,7 +146,7 @@ const Login = () => {
               size="small"
               value={values.password}
               onChange={handleChange}
-              helperText={error && "Please enter a valid password"}
+              helperText={error}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -206,6 +225,8 @@ const Login = () => {
               my: 2,
               width: "100%",
               height: "50px",
+              backgroundColor: "black",
+              "&:hover": { backgroundColor: "gray", color: "white" },
             }}
           >
             {isLoading ? "Logging In..." : "Log In"}

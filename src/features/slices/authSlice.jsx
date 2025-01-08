@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const validateUsername = (name) => /^[A-Za-z]{4,10}$/i.test(name);
+
+const validatePassword = (password) =>
+  /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,10}$/i.test(
+    password
+  );
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: JSON.parse(localStorage.getItem("authUser")) || {
       name: "",
-      password: "",
       image: "",
       authUser: false,
       error: null,
@@ -13,31 +19,28 @@ export const authSlice = createSlice({
   },
   reducers: {
     login(state, action) {
-      const userId = action.payload;
-      const userValidation = /^[A-Za-z]{4,10}$/i.test(userId.name);
-      const passwordValidation =
-        /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,10}$/i.test(
-          userId.password
-        );
-      state.user = userId;
-      if (!userValidation || !passwordValidation) {
-        state.user.authUser = false;
+      const { name, password } = action.payload;
+      const isNameValid = validateUsername(name);
+      const isPasswordValid = validatePassword(password);
+
+      if (!isNameValid) {
+        state.user.error = "Username must be 4-10 alphabetic characters.";
+      } else if (!isPasswordValid) {
+        state.user.error =
+          "Password must be 4-10 characters, include a number, a letter, and a special character.";
       } else {
-        state.user.authUser = true;
-        const saveState = JSON.stringify(userId);
-        localStorage.setItem("authUser", saveState);
+        state.user = { ...action.payload, authUser: true, error: null };
+        localStorage.setItem("authUser", JSON.stringify(state.user));
       }
     },
     logout(state) {
       state.user = {
         name: "",
-        password: "",
         image: "",
         authUser: false,
         error: null,
       };
-      localStorage.removeItem("authUser");
-      localStorage.removeItem("error");
+      localStorage.clear("authUser");
     },
     clearError(state) {
       state.user.error = null;
