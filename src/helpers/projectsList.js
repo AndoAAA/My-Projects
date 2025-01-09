@@ -10,8 +10,8 @@ import project03Big from "./../img/projects/03-big.jpg";
 import project04 from "./../img/projects/04.jpg";
 import project04Big from "./../img/projects/04-big.jpg";
 
-import project05 from "./../img/projects/05.jpg";
-import project05Big from "./../img/projects/05-big.jpg";
+import project05 from "./../img/projects/05.png";
+import project05Big from "./../img/projects/05-big.png";
 
 import project06 from "./../img/projects/06.jpg";
 import project06Big from "./../img/projects/06-big.jpg";
@@ -46,10 +46,11 @@ export const projects = [
     imgBig: project04Big
   },
   {
-    title: "Landing",
-    skills: "React",
+    title: "Ecommerce-OnLine-Shop",
+    skills: "React,Redux Toolkit, Material UI",
     img: project05,
-    imgBig: project05Big
+    imgBig: project05Big,
+    gitHubLink:"https://github.com/AndoAAA/My-Projects/tree/Ecommerce-On-Line-Shop"
   },
   {
     title: "Gaming community",
