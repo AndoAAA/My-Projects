@@ -56,7 +56,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "white", color: "black" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "white", color: "black" }}
+      >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography variant="subtitle1" component="div" sx={{ mr: 2 }}>
@@ -72,9 +75,7 @@ function Navbar() {
               />
             </Search>
           </Box>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
-            Tarverdyan Projects
-          </Typography>
+
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Button color="inherit">Register</Button>
             <Button color="inherit">Login</Button>
