@@ -87,7 +87,7 @@ export const newArrivals = [
   {
     id: 4,
     img: products4,
-    title: "spring going out",
+    title: "Spring going out",
     price: 45.99,
   },
 ];
@@ -96,7 +96,7 @@ export const bestsellers = [
   {
     id: 5,
     img: products5,
-    title: "faux suede jacket",
+    title: "Faux suede jacket",
     price: 54.99,
   },
   {
@@ -141,7 +141,7 @@ export const allProducts = [
   {
     id: 4,
     img: products4,
-    title: "spring going out",
+    title: "Spring going out",
     price: 45.99,
   },
   {

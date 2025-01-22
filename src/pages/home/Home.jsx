@@ -1,18 +1,24 @@
-import React from 'react'
-import Announcement from '../../components/announcement/Announcement'
-import Navbar from '../../components/navbar/Navbar'
-import Slider from '../../components/slider/Slider'
-import Categories from '../../components/categories/Categories'
+import React from "react";
+import Announcement from "../../components/announcement/Announcement";
+import Navbar from "../../components/navbar/Navbar";
+import Slider from "../../components/slider/Slider";
+import Categories from "../../components/categories/Categories";
+import NewArrivals from "../../components/products/NewArrivals";
+import BestSellers from "../../components/products/BestSellers";
+import NewsLetter from "../../components/newsletter/NewsLetter";
 
 function Home() {
   return (
     <>
-      <Announcement/>
-      <Navbar/>
-      <Slider/>
-      <Categories/>
+      <Announcement />
+      <Navbar />
+      <Slider />
+      <Categories />
+      <NewArrivals />
+      <BestSellers />
+      <NewsLetter />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
