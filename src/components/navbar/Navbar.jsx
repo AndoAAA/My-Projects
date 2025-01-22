@@ -11,6 +11,7 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { NavLink } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -77,8 +78,12 @@ function Navbar() {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Button color="inherit">Register</Button>
-            <Button color="inherit">Login</Button>
+            <NavLink to="/register">
+              <Button color="inherit" sx={{color:"black"}}>Register</Button>
+            </NavLink>
+            <NavLink to="/login">
+            <Button color="inherit" sx={{color:"black"}}>Login</Button>
+            </NavLink>
             <IconButton color="inherit">
               <ShoppingCartOutlinedIcon />
             </IconButton>
