@@ -1,6 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { categories } from "../../data";
+import { NavLink } from "react-router-dom";
 
 function Categories() {
   return (
@@ -49,6 +50,7 @@ function Categories() {
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
               {item.title}
             </Typography>
+            <NavLink to="/products">
             <Button
               variant="contained"
               sx={{
@@ -62,6 +64,7 @@ function Categories() {
             >
               Shop Now
             </Button>
+            </NavLink>
           </Box>
         </Box>
       ))}

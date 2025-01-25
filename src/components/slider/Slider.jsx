@@ -3,6 +3,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { sliderItems } from "../../data";
+import { NavLink } from "react-router-dom";
 
 function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,14 +59,14 @@ function Slider() {
               src={item.img}
               alt={item.title}
               style={{
-                width:"300px",
+                width: "300px",
                 height: "400px",
                 objectFit: "cover",
               }}
             />
             <Box
               sx={{
-                width:"50%",
+                width: "50%",
                 marginTop: { xs: 2, sm: 0 },
                 marginLeft: { sm: 3 },
                 display: "flex",
@@ -80,20 +81,22 @@ function Slider() {
               <Typography variant="body1" sx={{ margin: "8px 0" }}>
                 {item.desc}
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  border: "none",
-                  padding: "10px 60px",
-                  fontSize: "20px",
-                  backgroundColor: "teal",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              >
-                Shop Now
-              </Button>
+              <NavLink to="/products">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    border: "none",
+                    padding: "10px 60px",
+                    fontSize: "20px",
+                    backgroundColor: "teal",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                >
+                  Shop Now
+                </Button>
+              </NavLink>
             </Box>
           </Box>
         ))}

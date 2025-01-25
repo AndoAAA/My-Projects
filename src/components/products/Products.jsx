@@ -2,8 +2,14 @@ import { Box, Button, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Products({ items, heading }) {
+
+  const navigate = useNavigate();
+  const handleViewDetails = (id) =>{
+    navigate(`/product/${id}`);
+  }
   return (
     <Box sx={{ padding: 4 }}>
       <Typography variant="h4" sx={{ marginBottom: 3 }}>
@@ -89,6 +95,7 @@ function Products({ items, heading }) {
                       color: "darkcyan",
                     },
                   }}
+                  onClick={()=> handleViewDetails(item.id)}
                 >
                   <SearchIcon /> View Details
                 </Button>
