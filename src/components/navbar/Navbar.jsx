@@ -6,19 +6,23 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Badge,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import HomeIcon from "@mui/icons-material/Home";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.grey[200], 0.15),
-  "&:hover": {
+  "&:hover, &:focus-within": {
     backgroundColor: alpha(theme.palette.grey[200], 0.25),
+    boxShadow: "0 0 4px rgba(0,0,0,0.2)",
   },
   marginLeft: theme.spacing(2),
   width: "100%",
@@ -55,15 +59,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalItems = cartItems.length;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
-        sx={{ backgroundColor: "white", color: "black" }}
+        sx={{
+          backgroundColor: "white",
+          color: "black",
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+        }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
+          {/* Left Side */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="subtitle1" component="div" sx={{ mr: 2 }}>
+            <Typography
+              variant="subtitle1"
+              component="div"
+              sx={{
+                mr: 2,
+                fontWeight: "bold",
+                cursor: "pointer",
+                "&:hover": { color: "teal" },
+              }}
+            >
               EN
             </Typography>
             <Search>
@@ -77,16 +98,77 @@ function Navbar() {
             </Search>
           </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <NavLink to="/register">
-              <Button color="inherit" sx={{color:"black"}}>Register</Button>
-            </NavLink>
-            <NavLink to="/login">
-            <Button color="inherit" sx={{color:"black"}}>Login</Button>
-            </NavLink>
-            <IconButton color="inherit">
-              <ShoppingCartOutlinedIcon />
+          {/* Home Icon */}
+          <NavLink to="/">
+            <IconButton
+              sx={{
+                color: "black",
+                "&:hover": { color: "teal" },
+              }}
+              aria-label="Home"
+            >
+              <HomeIcon fontSize="medium" />
             </IconButton>
+          </NavLink>
+
+          {/* Right Side */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <NavLink
+              to="/register"
+              style={({ isActive }) => ({
+                textDecoration: "none",
+                color: isActive ? "teal" : "black",
+              })}
+            >
+              <Button
+                color="inherit"
+                aria-label="Register"
+                sx={{
+                  fontWeight: "bold",
+                  textTransform: "none",
+                  "&:hover": { color: "teal" },
+                }}
+              >
+                Register
+              </Button>
+            </NavLink>
+            <NavLink
+              to="/login"
+              style={({ isActive }) => ({
+                textDecoration: "none",
+                color: isActive ? "teal" : "black",
+              })}
+            >
+              <Button
+                color="inherit"
+                aria-label="Login"
+                sx={{
+                  fontWeight: "bold",
+                  textTransform: "none",
+                  "&:hover": { color: "teal" },
+                }}
+              >
+                Login
+              </Button>
+            </NavLink>
+            <NavLink to="/cart">
+              <IconButton aria-label="View cart" sx={{ color: "black" }}>
+                <Badge
+                  badgeContent={totalItems}
+                  color="secondary"
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      top: 0,
+                      right: 4,
+                      backgroundColor: "teal",
+                      color: "white",
+                    },
+                  }}
+                >
+                  <ShoppingCartOutlinedIcon />
+                </Badge>
+              </IconButton>
+            </NavLink>
           </Box>
         </Toolbar>
       </AppBar>

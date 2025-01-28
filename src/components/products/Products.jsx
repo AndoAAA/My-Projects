@@ -3,13 +3,20 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
 
 function Products({ items, heading }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+  };
 
   const navigate = useNavigate();
-  const handleViewDetails = (id) =>{
+
+  const handleViewDetails = (id) => {
     navigate(`/product/${id}`);
-  }
+  };
   return (
     <Box sx={{ padding: 4 }}>
       <Typography variant="h4" sx={{ marginBottom: 3 }}>
@@ -82,6 +89,7 @@ function Products({ items, heading }) {
                       backgroundColor: "darkcyan",
                     },
                   }}
+                  onClick={() => handleAddToCart(item)}
                 >
                   <ShoppingCartIcon /> Add To Cart
                 </Button>
@@ -95,7 +103,7 @@ function Products({ items, heading }) {
                       color: "darkcyan",
                     },
                   }}
-                  onClick={()=> handleViewDetails(item.id)}
+                  onClick={() => handleViewDetails(item.id)}
                 >
                   <SearchIcon /> View Details
                 </Button>

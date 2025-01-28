@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { allProducts } from "../../data";
 import Navbar from "../../components/navbar/Navbar";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Snackbar, Alert } from "@mui/material";
 import Footer from "../../components/footer/Footer";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
@@ -15,14 +15,14 @@ function SingleProduct() {
 
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-    alert(
-      `${product.title} (Color: ${selectedColor}, Size: ${selectedSize}) added to cart!`
-    );
+    dispatch(addToCart({ ...product, quantity }));
+    setOpen(true);
   };
 
   if (!product) {
@@ -74,6 +74,11 @@ function SingleProduct() {
           <Typography variant="h5" color="teal" gutterBottom>
             {`$${product.price.toFixed(2)}`}
           </Typography>
+          {product.stock <= 5 && (
+            <Typography variant="subtitle2" color="error" gutterBottom>
+              Hurry! Only {product.stock} left in stock.
+            </Typography>
+          )}
           <Box my={3}>
             <Typography variant="h4" gutterBottom>
               Colors
@@ -97,12 +102,13 @@ function SingleProduct() {
                       transform: "scale(1.1)",
                       transition: "transform 0.2s ease",
                     },
-                    "&:focus": {
-                      outline: `2px dashed ${color}`,
-                    },
                   }}
                   aria-label={`Select color ${color}`}
                   role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") setSelectedColor(color);
+                  }}
                 />
               ))}
             </Box>
@@ -125,15 +131,64 @@ function SingleProduct() {
                     "&:hover": {
                       backgroundColor: "darkslategray",
                       color: "white",
-                      "&:focus": {
-                        outline: "2px solid teal",
-                      },
                     },
+                    "&:active": {
+                      transform: "scale(0.98)",
+                      backgroundColor: "teal",
+                    },
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
                   {size}
                 </Button>
               ))}
+            </Box>
+          </Box>
+          <Box my={3}>
+            <Typography variant="h4" gutterBottom>
+              Quantity
+            </Typography>
+            <Box display="flex" alignItems="center" gap={2}>
+              <Button
+                onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+                variant="outlined"
+                disabled={quantity === 1}
+                sx={{
+                  borderRadius: "8px",
+                  border: "1px solid teal",
+                  color: "teal",
+                  "&:hover": {
+                    backgroundColor: "teal",
+                    color: "white",
+                  },
+                  padding: "5px 15px",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                -
+              </Button>
+              <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+                {quantity}
+              </Typography>
+              <Button
+                onClick={() => setQuantity((prev) => prev + 1)}
+                variant="outlined"
+                sx={{
+                  borderRadius: "8px",
+                  border: "1px solid teal",
+                  color: "teal",
+                  "&:hover": {
+                    backgroundColor: "teal",
+                    color: "white",
+                  },
+                  padding: "5px 15px",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                +
+              </Button>
             </Box>
           </Box>
           <Box mt={4}>
@@ -142,10 +197,17 @@ function SingleProduct() {
               color="primary"
               onClick={() => handleAddToCart(product)}
               sx={{
-                backgroundColor: "teal",
+                background: "teal",
                 "&:hover": {
-                  backgroundColor: "darkslategray",
+                  background: "darkslategray",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                 },
+                color: "white",
+                borderRadius: "12px",
+                padding: "10px 20px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                textTransform: "capitalize",
+                transition: "all 0.3s ease",
               }}
             >
               Add to cart
@@ -153,6 +215,21 @@ function SingleProduct() {
           </Box>
         </Box>
       </Box>
+      
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`${product.title} (Color: ${selectedColor}, Size: ${selectedSize}, Quantity: ${quantity}) added to cart!`}
+        </Alert>
+      </Snackbar>
       <Footer />
     </>
   );
