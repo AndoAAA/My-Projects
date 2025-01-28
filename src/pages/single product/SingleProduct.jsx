@@ -107,7 +107,8 @@ function SingleProduct() {
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") setSelectedColor(color);
+                    if (e.key === "Enter" || e.key === " ")
+                      setSelectedColor(color);
                   }}
                 />
               ))}
@@ -215,7 +216,7 @@ function SingleProduct() {
           </Box>
         </Box>
       </Box>
-      
+
       <Snackbar
         open={open}
         autoHideDuration={3000}
