@@ -5,11 +5,12 @@ import myphoto from "../../assets/myphoto.jpg";
 function Hero() {
   return (
     <Box
+    id="hero"
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         height: "100vh",
         padding: "0 20px",
         background:

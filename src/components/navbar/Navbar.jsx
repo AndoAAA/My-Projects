@@ -18,7 +18,6 @@ function Navbar() {
 
   return (
     <AppBar
-      id="navbar"
       position="sticky"
       sx={{
         bgcolor: "rgba(25, 55, 109, 1)",
@@ -36,7 +35,7 @@ function Navbar() {
       >
         {/* Logo / Brand */}
         <Link
-          to="navbar"
+          to="hero"
           smooth={true}
           duration={500}
           style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
@@ -68,6 +67,7 @@ function Navbar() {
         {!isMobile && (
           <Box component="nav" sx={navLinksStyle}>
             <NavItem to="about" label="About" />
+            <NavItem to="skills" label="Skills" />
             <NavItem to="projects" label="Projects" />
             <NavItem to="contact" label="Contacts" />
           </Box>
