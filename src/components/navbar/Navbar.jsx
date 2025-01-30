@@ -94,8 +94,9 @@ function Navbar() {
         >
           <CloseIcon fontSize="large" />
         </IconButton>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, cursor:"pointer" }}>
           <MobileNavItem to="about" label="About" closeMenu={setOpenMenu} />
+          <MobileNavItem to="skills" label="Skills" closeMenu={setOpenMenu} />
           <MobileNavItem
             to="projects"
             label="Projects"

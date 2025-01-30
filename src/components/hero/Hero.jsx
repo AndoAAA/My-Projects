@@ -5,7 +5,7 @@ import myphoto from "../../assets/myphoto.jpg";
 function Hero() {
   return (
     <Box
-    id="hero"
+      id="hero"
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
@@ -48,8 +48,13 @@ function Hero() {
         <Button
           variant="contained"
           color="primary"
-          sx={{ textTransform: "none", fontSize: "1rem", borderRadius: "25px", background:
-            "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)", }}
+          sx={{
+            textTransform: "none",
+            fontSize: "1rem",
+            borderRadius: "25px",
+            background:
+              "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
+          }}
           href="mailto:tarverdyan070@gmail.com"
         >
           Contact Me
