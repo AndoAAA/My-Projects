@@ -5,13 +5,14 @@ import myPhoto from "../../assets/myphoto.jpg";
 function About() {
   return (
     <Box
+      id="about"
       sx={{
         padding: "40px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background:
-          "linear-gradient(to right, rgba(25, 55, 109, 1), #5663a7)",
+        background: "linear-gradient(to right, rgba(25, 55, 109, 1), #5663a7)",
+        minHeight: "100vh",
       }}
     >
       <Box
@@ -36,6 +37,8 @@ function About() {
               color: "white",
               fontWeight: "bold",
               fontSize: { xs: "2.5rem", md: "3.5rem" },
+              textTransform: "uppercase",
+              letterSpacing: "1px",
             }}
           >
             What I Can Do for You
@@ -50,6 +53,13 @@ function About() {
               objectFit: "cover",
               marginBottom: "20px",
               border: "4px solid white",
+              transition: "transform 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1)";
             }}
           />
         </Box>

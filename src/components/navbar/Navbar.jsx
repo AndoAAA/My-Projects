@@ -7,7 +7,7 @@ import {
   Drawer,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-scroll";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
@@ -18,18 +18,37 @@ function Navbar() {
 
   return (
     <AppBar
+      id="navbar"
       position="sticky"
       sx={{
         bgcolor: "rgba(25, 55, 109, 1)",
         boxShadow: 0,
+        padding: "10px 0",
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 3 }}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          px: 3,
+        }}
+      >
         {/* Logo / Brand */}
-        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+        <Link
+          to="navbar"
+          smooth={true}
+          duration={500}
+          style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
+        >
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", letterSpacing: 1 }}
+            sx={{
+              fontWeight: "bold",
+              letterSpacing: 1,
+              transition: "color 0.3s ease",
+              "&:hover": { color: "#00c8ff" },
+            }}
           >
             Portfolio
           </Typography>
@@ -41,27 +60,21 @@ function Navbar() {
             onClick={() => setOpenMenu(!openMenu)}
             sx={{ color: "white" }}
           >
-            {openMenu ? <CloseIcon /> : <MenuIcon />}
+            <MenuIcon fontSize="large" />
           </IconButton>
         )}
 
         {/* Navigation Links (Desktop) */}
         {!isMobile && (
-          <Box component="nav" sx={{ display: "flex", gap: "30px",}}>
-            <a href="#about" style={navLinkStyle}>
-              About
-            </a>
-            <a href="#projects" style={navLinkStyle}>
-              Projects
-            </a>
-            <a href="#contacts" style={navLinkStyle}>
-              Contacts
-            </a>
+          <Box component="nav" sx={navLinksStyle}>
+            <NavItem to="about" label="About" />
+            <NavItem to="projects" label="Projects" />
+            <NavItem to="contact" label="Contacts" />
           </Box>
         )}
       </Toolbar>
 
-      {/* Mobile Menu Drawer with Animation */}
+      {/* Mobile Menu Drawer */}
       <Drawer
         anchor="right"
         open={openMenu}
@@ -71,57 +84,73 @@ function Navbar() {
             width: 250,
             padding: "20px",
             backgroundColor: "rgba(25, 55, 109, 1)",
-            transition: "transform 0.3s ease-in-out",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            transform: openMenu ? "translateX(0)" : "translateX(100%)",
           },
         }}
       >
+        <IconButton
+          onClick={() => setOpenMenu(false)}
+          sx={{ color: "white", alignSelf: "flex-end" }}
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <a
-            href="#about"
-            style={mobileNavLinkStyle}
-            onClick={() => setOpenMenu(false)}
-            
-          >
-            About
-          </a>
-          <a
-            href="#projects"
-            style={mobileNavLinkStyle}
-            onClick={() => setOpenMenu(false)}
-          >
-            Projects
-          </a>
-          <a
-            href="#contacts"
-            style={mobileNavLinkStyle}
-            onClick={() => setOpenMenu(false)}
-          >
-            Contacts
-          </a>
+          <MobileNavItem to="about" label="About" closeMenu={setOpenMenu} />
+          <MobileNavItem
+            to="projects"
+            label="Projects"
+            closeMenu={setOpenMenu}
+          />
+          <MobileNavItem
+            to="contact"
+            label="Contacts"
+            closeMenu={setOpenMenu}
+          />
         </Box>
       </Drawer>
     </AppBar>
   );
 }
 
-// Desktop Link Styles
-const navLinkStyle = {
-  textDecoration: "none",
-  color: "white",
-  fontSize: "1.1rem",
-  fontWeight: "500",
-  transition: "color 0.3s ease, transform 0.3s ease",
-  position: "relative",
-  paddingBottom: "2px",
-  "&:hover": {
-    color: "#00c8ff",
-    transform: "scale(1.05)",
-  },
+// Reusable Nav Item (Desktop)
+const NavItem = ({ to, label }) => (
+  <Link to={to} smooth={true} duration={500} style={navLinkStyle}>
+    {label}
+  </Link>
+);
+
+// Reusable Nav Item (Mobile)
+const MobileNavItem = ({ to, label, closeMenu }) => (
+  <Link
+    to={to}
+    smooth={true}
+    duration={500}
+    style={mobileNavLinkStyle}
+    onClick={() => closeMenu(false)}
+  >
+    {label}
+  </Link>
+);
+
+// Styles
+const navLinksStyle = {
+  display: "flex",
+  gap: "30px",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "20px",
 };
 
-// Mobile Nav Link Styles
+const navLinkStyle = {
+  cursor: "pointer",
+  color: "#fff",
+  fontSize: "1.1rem",
+  fontWeight: "600",
+  textDecoration: "none",
+  transition: "color 0.3s ease",
+  "&:hover": { color: "#00c8ff" },
+};
+
 const mobileNavLinkStyle = {
   textDecoration: "none",
   color: "white",
@@ -129,11 +158,8 @@ const mobileNavLinkStyle = {
   fontWeight: "600",
   padding: "10px 0",
   borderBottom: "1px solid #ccc",
-  transition: "color 0.3s ease, transform 0.3s ease",
-  "&:hover": {
-    color: "#00c8ff",
-    transform: "scale(1.05)",
-  },
+  transition: "color 0.3s ease",
+  "&:hover": { color: "#00c8ff" },
 };
 
 export default Navbar;
