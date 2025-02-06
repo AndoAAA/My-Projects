@@ -13,6 +13,7 @@ import ecommerce2 from "../assets/projectPhotos/ecommerce-2.jpg";
 import hotel from "../assets/projectPhotos/hotel.jpg";
 import pizza from "../assets/projectPhotos/pizza.jpg";
 import animation from "../assets/projectPhotos/animation.jpg";
+import newsImg from "../assets/projectPhotos/newsImage.jpg";
 
 export const projects = [
   {
@@ -53,6 +54,14 @@ export const projects = [
     imageSrc: animation,
     description: " Animated & Responsive Website Landing Page | HTML, CSS & JavaScript",
     skills: ["HTML", "CSS", "Java Script"],
+    demo: "https://www.example.com",
+    source: "https://github.com/AndoAAA/My-Projects",
+  },
+  {
+    title: "News Website",
+    imageSrc: newsImg,
+    description: "News API | React JS, News Website using the News API",
+    skills: ["React JS", "Material UI", "Axios"],
     demo: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
