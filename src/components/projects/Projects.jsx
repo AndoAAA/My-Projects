@@ -141,7 +141,7 @@ function Projects() {
                     },
                   }}
                 >
-                  Demo
+                  Project
                 </Button>
                 <Button
                   variant="outlined"
