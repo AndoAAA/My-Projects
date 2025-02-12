@@ -22,7 +22,7 @@ export const projects = [
     description:
       "Responsive E-Commerce Website Tutorial Using ReactJs and Redux Toolkit.",
     skills: ["React JS", "Redux", "Material UI"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -30,7 +30,7 @@ export const projects = [
     imageSrc: ecommerce2,
     description: "Ecommerce Web Store using ReactJS and Redux Toolkit.",
     skills: ["React", "Material UI", "Redux"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -38,7 +38,7 @@ export const projects = [
     imageSrc: hotel,
     description: "React Booking Hotels App Tutorial Using ReactJs.",
     skills: ["React JS", "Material UI"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -46,7 +46,7 @@ export const projects = [
     imageSrc: pizza,
     description: "Pizza Website Tutorial Using ReactJS and Redux.",
     skills: ["React JS", "Redux", "Sass"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -54,7 +54,7 @@ export const projects = [
     imageSrc: animation,
     description: " Animated & Responsive Website Landing Page | HTML, CSS & JavaScript",
     skills: ["HTML", "CSS", "Java Script"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -62,7 +62,7 @@ export const projects = [
     imageSrc: newsImg,
     description: "News API | React JS, News Website using the News API",
     skills: ["React JS", "Material UI", "Axios"],
-    demo: "https://www.example.com",
+    link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
   },
 ];

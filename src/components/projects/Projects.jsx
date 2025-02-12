@@ -124,7 +124,7 @@ function Projects() {
               >
                 <Button
                   variant="contained"
-                  href={project.demo}
+                  href={project.link}
                   target="_blank"
                   sx={{
                     background:
