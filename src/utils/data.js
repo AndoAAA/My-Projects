@@ -63,7 +63,7 @@ export const projects = [
     imageSrc: newsImg,
     description: "News API | React JS, News Website using the News API",
     skills: ["React JS", "Material UI", "Axios"],
-    link: "https://www.example.com",
+    link: "https://news-website-beige-ten.vercel.app/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
