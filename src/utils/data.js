@@ -31,7 +31,7 @@ export const projects = [
     imageSrc: ecommerce2,
     description: "Ecommerce Web Store using ReactJS and Redux Toolkit.",
     skills: ["React", "Material UI", "Redux"],
-    link: "https://www.example.com",
+    link: "https://e-commerce-2-ten.vercel.app/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
