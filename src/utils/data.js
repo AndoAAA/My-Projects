@@ -71,7 +71,7 @@ export const projects = [
     imageSrc: library,
     description: "Library API | React JS, Library Website using the Library API",
     skills: ["React JS", "Material UI", "Axios", "Redux Toolkit", "TypeScript"],
-    link: "https://www.example.com",
+    link: "https://library-one-rho.vercel.app/",
     source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/El-Clot-Library",
   },
 ];
