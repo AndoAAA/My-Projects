@@ -1,7 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import React from "react";
 import myphoto from "../../assets/myphoto.jpg";
-
 function Hero() {
   return (
     <Box
@@ -55,9 +54,11 @@ function Hero() {
             background:
               "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
           }}
-          href="mailto:tarverdyan070@gmail.com"
+          component="a"
+          href="/assets/cv/cv.pdf"
+          download="Andranik_Tarverdyan_CV.pdf"
         >
-          Contact Me
+          Download CV
         </Button>
       </Box>
 

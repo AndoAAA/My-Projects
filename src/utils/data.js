@@ -14,6 +14,7 @@ import hotel from "../assets/projectPhotos/hotel.jpg";
 import pizza from "../assets/projectPhotos/pizza.jpg";
 import animation from "../assets/projectPhotos/animation.jpg";
 import newsImg from "../assets/projectPhotos/newsImage.jpg";
+import library from "../assets/projectPhotos/library.jpg";
 
 export const projects = [
   {
@@ -64,6 +65,14 @@ export const projects = [
     skills: ["React JS", "Material UI", "Axios"],
     link: "https://www.example.com",
     source: "https://github.com/AndoAAA/My-Projects",
+  },
+  {
+    title: "El CLot Library",
+    imageSrc: library,
+    description: "Library API | React JS, Library Website using the Library API",
+    skills: ["React JS", "Material UI", "Axios", "Redux Toolkit", "TypeScript"],
+    link: "https://www.example.com",
+    source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/El-Clot-Library",
   },
 ];
 
