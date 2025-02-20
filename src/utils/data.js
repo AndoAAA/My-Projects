@@ -43,7 +43,7 @@ export const projects = [
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
-    title: "Dodo Pizza",
+    title: "Hamov Pizza",
     imageSrc: pizza,
     description: "Pizza Website Tutorial Using ReactJS and Redux.",
     skills: ["React JS", "Redux", "Sass"],
