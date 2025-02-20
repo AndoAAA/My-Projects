@@ -39,7 +39,7 @@ export const projects = [
     imageSrc: hotel,
     description: "React Booking Hotels App Tutorial Using ReactJs.",
     skills: ["React JS", "Material UI"],
-    link: "https://www.example.com",
+    link: "https://booking-hotels-two.vercel.app/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
