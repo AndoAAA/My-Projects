@@ -111,6 +111,7 @@ function Contact() {
       <Box
         sx={{
           display: "flex",
+          flexWrap:"wrap",
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
@@ -126,7 +127,6 @@ function Contact() {
             aria-label={`Visit my ${item.label}`}
             sx={{
               display: "flex",
-              flexWrap:"wrap",
               alignItems: "center",
               gap: "15px",
               padding: "15px 25px",
