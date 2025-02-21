@@ -31,7 +31,7 @@ export const projects = [
     imageSrc: ecommerce2,
     description: "Ecommerce Web Store using ReactJS and Redux Toolkit.",
     skills: ["React", "Material UI", "Redux"],
-    link: "https://e-commerce-2-ten.vercel.app/",
+    link: "https://malatia.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -39,7 +39,7 @@ export const projects = [
     imageSrc: hotel,
     description: "React Booking Hotels App Tutorial Using ReactJs.",
     skills: ["React JS", "Material UI"],
-    link: "https://booking-hotels-two.vercel.app/",
+    link: "https://hotels.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
@@ -71,7 +71,7 @@ export const projects = [
     imageSrc: library,
     description: "Library API | React JS, Library Website using the Library API",
     skills: ["React JS", "Material UI", "Axios", "Redux Toolkit", "TypeScript"],
-    link: "https://library-one-rho.vercel.app/",
+    link: "https://library.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/El-Clot-Library",
   },
 ];
