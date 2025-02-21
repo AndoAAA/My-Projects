@@ -23,7 +23,7 @@ export const projects = [
     description:
       "Responsive E-Commerce Website Tutorial Using ReactJs and Redux Toolkit.",
     skills: ["React JS", "Redux", "Material UI"],
-    link: "https://e-commerce-1-dun.vercel.app/",
+    link: "https://firdus.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {

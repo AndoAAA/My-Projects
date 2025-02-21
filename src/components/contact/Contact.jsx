@@ -31,7 +31,11 @@ const hoverBackground =
   "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)";
 
 function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -59,18 +63,18 @@ function Contact() {
     setLoading(true);
     try {
       await emailjs.send(
-        "service_mo2qbbv", 
-        "template_dyqb11p", 
+        "service_mo2qbbv",
+        "template_dyqb11p",
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        "W_R8qr82NdANY4Wtl" 
+        "W_R8qr82NdANY4Wtl"
       );
 
       alert("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" }); 
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Email sending failed:", error);
       alert("Failed to send message. Please try again later.");
