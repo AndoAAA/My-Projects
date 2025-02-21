@@ -126,6 +126,7 @@ function Contact() {
             aria-label={`Visit my ${item.label}`}
             sx={{
               display: "flex",
+              flexWrap:"wrap",
               alignItems: "center",
               gap: "15px",
               padding: "15px 25px",
