@@ -1,16 +1,10 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  IconButton,
-  Drawer,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Drawer } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-scroll";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useMediaQuery } from "@mui/material";
+import logo from "../../assets/logo/my-logo.png";
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -40,17 +34,19 @@ function Navbar() {
           duration={500}
           style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
         >
-          <Typography
-            variant="h5"
+          <Box
+            component="img"
+            src={logo}
+            alt="logo"
             sx={{
-              fontWeight: "bold",
-              letterSpacing: 1,
-              transition: "color 0.3s ease",
-              "&:hover": { color: "#00c8ff" },
+              height: { xs: "40px", sm: "50px", md: "120px" },
+              width: "auto",
+              maxWidth: "150px",
+              objectFit: "contain",
+              cursor: "pointer",
+              borderRadius: "50%",
             }}
-          >
-            Portfolio
-          </Typography>
+          />
         </Link>
 
         {/* Mobile Menu Icon */}
@@ -94,7 +90,14 @@ function Navbar() {
         >
           <CloseIcon fontSize="large" />
         </IconButton>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, cursor:"pointer" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            cursor: "pointer",
+          }}
+        >
           <MobileNavItem to="about" label="About" closeMenu={setOpenMenu} />
           <MobileNavItem to="skills" label="Skills" closeMenu={setOpenMenu} />
           <MobileNavItem
