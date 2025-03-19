@@ -1,28 +1,32 @@
-import { AppBar, Box, Toolbar, IconButton, Drawer } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Drawer,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-scroll";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useMediaQuery } from "@mui/material";
-import logo from "../../assets/logo/my-logo.png";
+import logo from "../../assets/logo/icon.png";
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <AppBar
       position="sticky"
-      sx={{
-        bgcolor: "rgba(25, 55, 109, 1)",
-        boxShadow: 0,
-        padding: "10px 0",
-      }}
+      sx={{ bgcolor: "rgba(25, 55, 109, 1)", boxShadow: 0, padding: "10px 0" }}
     >
       <Toolbar
         sx={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-between",
           alignItems: "center",
           px: 3,
         }}
@@ -39,9 +43,8 @@ function Navbar() {
             src={logo}
             alt="logo"
             sx={{
-              height: { xs: "40px", sm: "50px", md: "120px" },
-              width: "auto",
-              maxWidth: "150px",
+              height: { xs: "40px", sm: "60px", md: "80px" },
+              maxWidth: "120px",
               objectFit: "contain",
               cursor: "pointer",
               borderRadius: "50%",
@@ -53,7 +56,11 @@ function Navbar() {
         {isMobile && (
           <IconButton
             onClick={() => setOpenMenu(!openMenu)}
-            sx={{ color: "white" }}
+            sx={{
+              color: theme.palette.common.white,
+              transition: "transform 0.3s ease",
+              "&:hover": { transform: "scale(1.1)", color: "#00c8ff" },
+            }}
           >
             <MenuIcon fontSize="large" />
           </IconButton>
@@ -75,12 +82,15 @@ function Navbar() {
         anchor="right"
         open={openMenu}
         onClose={() => setOpenMenu(false)}
+        transitionDuration={400}
         sx={{
           ".MuiDrawer-paper": {
             width: 250,
             padding: "20px",
             backgroundColor: "rgba(25, 55, 109, 1)",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            transform: openMenu ? "translateX(0)" : "translateX(100%)",
+            transition: "transform 0.4s ease-in-out",
           },
         }}
       >
@@ -151,8 +161,26 @@ const navLinkStyle = {
   fontSize: "1.1rem",
   fontWeight: "600",
   textDecoration: "none",
+  position: "relative",
   transition: "color 0.3s ease",
-  "&:hover": { color: "#00c8ff" },
+  "&:hover": {
+    color: "#00c8ff",
+  },
+  "&::after": {
+    content: "''",
+    display: "block",
+    width: "100%",
+    height: "2px",
+    background: "#00c8ff",
+    position: "absolute",
+    bottom: "-5px",
+    left: "0",
+    transform: "scaleX(0)",
+    transition: "transform 0.3s ease",
+  },
+  "&:hover::after": {
+    transform: "scaleX(1)",
+  },
 };
 
 const mobileNavLinkStyle = {
