@@ -55,8 +55,8 @@ export const projects = [
     imageSrc: animation,
     description: " Animated & Responsive Website Landing Page | HTML, CSS & JavaScript",
     skills: ["HTML", "CSS", "Java Script"],
-    link: "https://www.example.com",
-    source: "https://github.com/AndoAAA/My-Projects",
+    link: "https://inovation-studio.tarverdyan-projects.com/",
+    source: "https://github.com/AndoAAA/html.css.js",
   },
   {
     title: "News Website",
