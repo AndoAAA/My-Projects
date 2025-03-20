@@ -45,7 +45,7 @@ export const projects = [
   {
     title: "Pizza",
     imageSrc: pizza,
-    description: "Pizza Website Tutorial Using ReactJS and Redux.",
+    description: "Pizza Delivery Website.",
     skills: ["React JS", "Redux Toolkit", "Material UI", "TypeScript"],
     link: "https://pizza.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/Pizza-Delivery",
