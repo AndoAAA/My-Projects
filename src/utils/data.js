@@ -12,8 +12,6 @@ import ecommerce1 from "../assets/projectPhotos/ecommerce-1.jpg";
 import ecommerce2 from "../assets/projectPhotos/ecommerce-2.jpg";
 import hotel from "../assets/projectPhotos/hotel.jpg";
 import pizza from "../assets/projectPhotos/pizza.jpg";
-import animation from "../assets/projectPhotos/animation.jpg";
-import newsImg from "../assets/projectPhotos/newsImage.jpg";
 import library from "../assets/projectPhotos/library.jpg";
 
 export const projects = [
@@ -48,31 +46,19 @@ export const projects = [
     description: "Pizza Delivery Website.",
     skills: ["React JS", "Redux Toolkit", "Material UI", "TypeScript"],
     link: "https://pizza.tarverdyan-projects.com/",
-    source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/Pizza-Delivery",
+    source:
+      "https://github.com/AndoAAA/My-Projects-TypeScript/tree/Pizza-Delivery",
   },
-  {
-    title: "Inovation Studio",
-    imageSrc: animation,
-    description: " Animated & Responsive Website Landing Page | HTML, CSS & JavaScript",
-    skills: ["HTML", "CSS", "Java Script"],
-    link: "https://inovation-studio.tarverdyan-projects.com/",
-    source: "https://github.com/AndoAAA/html.css.js",
-  },
-  {
-    title: "News Website",
-    imageSrc: newsImg,
-    description: "News API | React JS, News Website using the News API",
-    skills: ["React JS", "Material UI", "Axios"],
-    link: "https://news-website-beige-ten.vercel.app/",
-    source: "https://github.com/AndoAAA/My-Projects",
-  },
+
   {
     title: "El CLot Library",
     imageSrc: library,
-    description: "Library API | React JS, Library Website using the Library API",
+    description:
+      "Library API | React JS, Library Website using the Library API",
     skills: ["React JS", "Material UI", "Axios", "Redux Toolkit", "TypeScript"],
     link: "https://library.tarverdyan-projects.com/",
-    source: "https://github.com/AndoAAA/My-Projects-TypeScript/tree/El-Clot-Library",
+    source:
+      "https://github.com/AndoAAA/My-Projects-TypeScript/tree/El-Clot-Library",
   },
 ];
 
