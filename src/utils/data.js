@@ -13,6 +13,9 @@ import ecommerce2 from "../assets/projectPhotos/ecommerce-2.jpg";
 import hotel from "../assets/projectPhotos/hotel.jpg";
 import pizza from "../assets/projectPhotos/pizza.jpg";
 import library from "../assets/projectPhotos/library.jpg";
+import typescript from "../assets/typescript.png";
+import next from "../assets/Next.js.png";
+import vercel from "../assets/Vercel.png";
 
 export const projects = [
   {
@@ -41,7 +44,7 @@ export const projects = [
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
-    title: "Pizza",
+    title: "Pizza Delivery",
     imageSrc: pizza,
     description: "Pizza Delivery Website.",
     skills: ["React JS", "Redux Toolkit", "Material UI", "TypeScript"],
@@ -102,5 +105,17 @@ export const skills = [
   {
     title: "SASS",
     imageSrc: sass,
+  },
+  {
+    title: "TypeScript",
+    imageSrc: typescript,
+  },
+  {
+    title: "Next.JS",
+    imageSrc: next,
+  },
+  {
+    title: "Vercel",
+    imageSrc: vercel,
   },
 ];
