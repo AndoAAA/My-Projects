@@ -40,7 +40,7 @@ export const authSlice = createSlice({
         authUser: false,
         error: null,
       };
-      localStorage.clear("authUser");
+      localStorage.removeItem("reduxState");
     },
     clearError(state) {
       state.user.error = null;

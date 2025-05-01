@@ -3,15 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cardSlice = createSlice({
   name: "card",
   initialState: {
-    card: [], // List of products in the cart
-    totalAmount: 0, // Total quantity of items in the cart
-    totalPrice: 0, // Total price of items in the cart
+    card: [],
+    totalAmount: 0,
+    totalPrice: 0,
   },
   reducers: {
     addToCard(state, action) {
       const product = action.payload;
 
-      // Find if the product already exists in the cart
       const exist = state.card.find(
         (item) =>
           item.id === product.id &&

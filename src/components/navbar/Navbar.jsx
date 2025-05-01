@@ -12,13 +12,13 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import logo from "../../assets/images/logo.png";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Card from "../card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/slices/authSlice";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -27,8 +27,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const { name, image } = user || {};
-  console.log(user);
-  
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
 
@@ -42,25 +41,29 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    handleClose();
+    navigate("/login");
   };
 
-  const renderBadge = (count) => (
-    <Badge
-      badgeContent={count}
-      color="error"
-      overlap="circular"
-      sx={{
-        "& .MuiBadge-badge": {
-          minWidth: 20,
-          height: 20,
-          fontSize: "0.75rem",
-        },
-      }}
-    >
-      <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
-    </Badge>
+  const renderBadge = useMemo(
+    () => (count) => (
+      <Badge
+        badgeContent={count}
+        color="error"
+        overlap="circular"
+        sx={{
+          "& .MuiBadge-badge": {
+            minWidth: 20,
+            height: 20,
+            fontSize: "0.75rem",
+          },
+        }}
+      >
+        <ShoppingBagOutlinedIcon sx={{ fontSize: 28 }} />
+      </Badge>
+    ),
+    []
   );
+
   return (
     <>
       <AppBar position="static">
@@ -89,6 +92,7 @@ const Navbar = () => {
             sx={{ width: { xs: "100px", sm: "150px" } }}
           />
         </NavLink>
+
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
           <Tooltip title="View Shopping Bag">
             <IconButton
@@ -103,14 +107,17 @@ const Navbar = () => {
               {renderBadge(totalAmount)}
             </IconButton>
           </Tooltip>
+
           {user ? (
             <>
-              <Avatar
-                src={image || "https://via.placeholder.com/32"}
-                alt="avatar"
-                sx={{ width: 32, height: 32, cursor: "pointer" }}
-                onClick={handleMenu}
-              />
+              <Tooltip title={name}>
+                <Avatar
+                  src={image}
+                  alt="avatar"
+                  sx={{ width: 32, height: 32, cursor: "pointer" }}
+                  onClick={handleMenu}
+                />
+              </Tooltip>
               <Typography
                 sx={{
                   marginLeft: 1,
@@ -119,7 +126,7 @@ const Navbar = () => {
                   fontWeight: "500",
                 }}
               >
-                {name}
+               Hi {name}
               </Typography>
               <Menu
                 anchorEl={anchorEl}
@@ -173,6 +180,7 @@ const Navbar = () => {
           </Typography>
         ))}
       </Box>
+
       <Card open={open} setOpen={setOpen} />
     </>
   );

@@ -8,7 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { login } from "../../features/slices/authSlice";
 import { useDispatch } from "react-redux";
 
@@ -22,6 +22,7 @@ const Login = () => {
   });
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState("");
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -37,7 +38,6 @@ const Login = () => {
     const file = e.target.files[0];
 
     if (file) {
-      console.log(file);
       if (!file.type.startsWith("image/")) {
         setError("Please upload a valid image file.");
         return;
@@ -47,8 +47,8 @@ const Login = () => {
         setError("Image size should not exceed 2MB.");
         return;
       }
+
       const previewUrl = URL.createObjectURL(file);
-      console.log(previewUrl);
       setPreview(previewUrl);
       setValues({ ...values, image: file });
       setError("");
@@ -60,18 +60,14 @@ const Login = () => {
       setError("All fields are required.");
       return false;
     }
+
     if (!/^[A-Za-z]{4,10}$/.test(values.name)) {
       setError("Username must be 4-10 alphabetic characters.");
       return false;
     }
-    if (
-      !/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,10}$/.test(
-        values.password
-      )
-    ) {
-      setError(
-        "Password must be 4-10 characters, include a number, a letter, and a special character."
-      );
+
+    if (!/^[A-Za-z]{4,10}$/.test(values.password)) {
+      setError("Password must be 4-10 characters, include a number, a letter.");
       return false;
     }
     return true;
@@ -86,6 +82,9 @@ const Login = () => {
     setValues({ name: "", password: "", image: "" });
     setPreview(null);
     setError("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
     alert("You have successfully logged in");
     window.location.href = "/";
   };
@@ -174,10 +173,10 @@ const Login = () => {
             <TextField
               type="file"
               name="image"
+              inputRef={fileInputRef}
               accept="image/*"
               onChange={handleImageChange}
               variant="outlined"
-              disabled={false}
               helperText={error}
               InputProps={{
                 sx: { padding: "8px", fontSize: 14, borderRadius: 1 },
@@ -208,7 +207,6 @@ const Login = () => {
                 color: "red",
                 textAlign: "center",
                 mb: 2,
-                marginBottom: "16px",
               }}
             >
               {error}
@@ -221,7 +219,7 @@ const Login = () => {
             color="info"
             size="small"
             disableElevation
-            disabled={isLoading}
+            disabled={isLoading || Boolean(error)}
             sx={{
               my: 2,
               width: "100%",

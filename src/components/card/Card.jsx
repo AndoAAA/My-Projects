@@ -79,8 +79,8 @@ const Card = ({ open, setOpen }) => {
                 <Grid2 item xs={3}>
                   <Box
                     component="img"
-                    src={item.img || "https://via.placeholder.com/150"}
-                    alt={item.name || "Product image"}
+                    src={item.img}
+                    alt={item.name}
                     sx={{
                       maxWidth: "100%",
                       maxHeight: 100,
@@ -180,11 +180,6 @@ const Card = ({ open, setOpen }) => {
 Card.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
-};
-
-Card.defaultProps = {
-  open: false,
-  setOpen: () => {},
 };
 
 export default Card;

@@ -8,80 +8,102 @@ import { singleProduct } from "../../features/slices/productSlice";
 const ProductCard = ({ id, name, text, price, colors, img }) => {
   const dispatch = useDispatch();
   const { type } = useParams();
+
   return (
-    <>
-      <Card
-        sx={{
-          maxWidth: { xs: "100%", sm: 345 },
-          boxShadow: 5,
-          borderRadius: 2,
-        }}
+    <Card
+      sx={{
+        maxWidth: { xs: "100%", sm: 345 },
+        boxShadow: 5,
+        borderRadius: 2,
+      }}
+    >
+      <Link
+        to={`/filtredProducts/${type}/${id}`}
+        aria-label={`View details of ${name}`}
+        role="link"
+        style={{ textDecoration: "none", color: "inherit" }}
       >
-        <Link
-          to={`/filtredProducts/${type}/` + id}
-          aria-label={`View details of ${name}`}
-          role="link"
+        <CardMedia
+          component="img"
+          width="100%"
+          height="100%"
+          image={img}
+          alt={name}
+          sx={{ objectFit: "cover" }}
+          onClick={() => dispatch(singleProduct(id))}
+        />
+      </Link>
+
+      <CardContent>
+        <Typography
+          id={`product-title-${id}`}
+          gutterBottom
+          variant="h5"
+          component="div"
+          sx={{
+            fontSize: {
+              xs: "1.1rem",
+              sm: "1.3rem",
+              md: "1.5rem",
+            },
+          }}
         >
-          <CardMedia
-            CardMedia
-            component="img"
-            width="100%"
-            height="100%"
-            image={img}
-            alt={name}
-            sx={{ objectFit: "cover" }}
-            onClick={() => dispatch(singleProduct(id))}
-          />
-        </Link>
-        <CardContent>
+          {name}
+        </Typography>
+
+        <Typography
+          id={`product-desc-${id}`}
+          variant="body2"
+          sx={{ color: "text.secondary", mb: 1 }}
+        >
+          {text}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Typography
-            id={`product-title-${id}`}
-            gutterBottom
-            variant="h5"
-            component="div"
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "green" }}
           >
-            {name}
-          </Typography>
-          <Typography
-            id={`product-desc-${id}`}
-            variant="body2"
-            sx={{ color: "text.secondary", mb: 1 }}
-          >
-            {text}
+            {price} $
           </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "green" }}
-            >
-              {price} $
-            </Typography>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              {colors?.map((color, index) => (
+          <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+            {colors?.map((color, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                }}
+              >
                 <Box
-                  key={index}
                   sx={{
-                    width: 20,
-                    height: 20,
+                    width: 16,
+                    height: 16,
                     borderRadius: "50%",
                     backgroundColor: color,
                     border: "1px solid #ddd",
-                    cursor: "pointer",
                   }}
-                ></Box>
-              ))}
-            </Box>
+                />
+                <Typography
+                  variant="caption"
+                  sx={{ color: "text.secondary", fontSize: "0.7rem" }}
+                >
+                  {color}
+                </Typography>
+              </Box>
+            ))}
           </Box>
-        </CardContent>
-      </Card>
-    </>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

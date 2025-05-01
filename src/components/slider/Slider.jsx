@@ -15,24 +15,28 @@ const Slider = () => {
   const slideIndex = useSelector((state) => state.slider.value);
 
   const handleNextSlide = () => {
-    dispatch(nextSlide((slideIndex + 1) % sliderData.length));
+    dispatch(nextSlide());
   };
 
   const handlePrevSlide = () => {
-    dispatch(
-      prevSlide((slideIndex - 1 + sliderData.length) % sliderData.length)
-    );
+    dispatch(prevSlide());
   };
 
   return (
     <>
-      <Box sx={{ position: "relative", overflow: "hidden", width: "100%" }}>
+      <Box
+        sx={{
+          position: "relative",
+          overflow: "hidden",
+          width: "100%",
+          paddingBlock: "30px",
+        }}
+      >
         <Container
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "850px",
           }}
         >
           {sliderData.map((item, index) => (
