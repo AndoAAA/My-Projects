@@ -25,9 +25,9 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const totalAmount = useSelector((state) => state.card.totalAmount);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user);
+  const { name, image, authUser } = user || {};
 
-  const { name, image } = user || {};
   const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
@@ -109,7 +109,7 @@ const Navbar = () => {
             </IconButton>
           </Tooltip>
 
-          {user ? (
+          {authUser ? (
             <>
               <Tooltip title={name}>
                 <Avatar

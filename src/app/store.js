@@ -6,7 +6,7 @@ import authReducer from "../features/slices/authSlice";
 
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem("reduxState");
+    const serializedState = localStorage.getItem("authUser");
     if (serializedState === null) {
       return undefined;
     }
@@ -20,7 +20,7 @@ const loadState = () => {
 const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("reduxState", serializedState);
+    localStorage.setItem("authUser", serializedState);
   } catch (e) {
     console.warn("Could not save state", e);
   }

@@ -21,6 +21,8 @@ const Login = () => {
     image: "",
   });
   const [preview, setPreview] = useState(null);
+  console.log(preview);
+
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
@@ -48,10 +50,14 @@ const Login = () => {
         return;
       }
 
-      const previewUrl = URL.createObjectURL(file);
-      setPreview(previewUrl);
-      setValues({ ...values, image: file });
-      setError("");
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        console.log(reader.result);
+        setPreview(reader.result);
+        setValues({ ...values, image: reader.result });
+        setError("");
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -67,10 +73,12 @@ const Login = () => {
     }
 
     if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(values.password)) {
-      setError("Password must be 4-10 characters, include letters and numbers.");
+      setError(
+        "Password must be 4-10 characters, including letters and numbers."
+      );
       return false;
     }
-    
+
     return true;
   };
 
@@ -79,24 +87,16 @@ const Login = () => {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    try {
-      await dispatch(login({ ...values, image: values.image || "" }));
-      alert("You have successfully logged in");
-      window.location.href = "/";
-    } catch (err) {
-      setError("Login failed. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-    
-    
+
+    await dispatch(login({ ...values, image: preview || "" }));
+
+    setIsLoading(false);
     setValues({ name: "", password: "", image: "" });
     setPreview(null);
-    setError("");
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
-    alert("You have successfully logged in");
+
     window.location.href = "/";
   };
 
