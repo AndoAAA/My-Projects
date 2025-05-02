@@ -1,37 +1,54 @@
 import React from "react";
 import { storeData } from "../../assets/data/dummyData";
-import { Box, Container, Grid2, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import ProductSectionItem from "./ProductSectionItem";
 
 const ProductSection = () => {
   return (
-    <>
-      <Container>
-        <Box
+    <Container>
+      <Box
+        sx={{
+          backgroundColor: "black",
+          maxWidth: "55%",
+          marginX: "auto",
+          textAlign: "center",
+          padding: 2,
+          borderRadius: 1,
+          marginBottom: 3,
+        }}
+      >
+        <Typography
+          variant="h3"
           sx={{
-            backgroundColor: "black",
-            maxWidth: "55%",
-            marginX: "auto",
-            textAlign: "center",
-            padding: 2,
-            borderRadius: 1,
-            marginBottom: 3,
+            color: "red",
+            fontWeight: "bold",
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
           }}
         >
-          <Typography
-            variant="h3"
+          Summer T-Shirt Sale 30%
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: 3,
+        }}
+      >
+        {storeData.slice(0, 6).map((product, index) => (
+          <Box
+            key={index}
             sx={{
-              color: "red",
-              fontWeight: "bold",
-              fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+              flex: {
+                xs: "0 0 100%",
+                sm: "0 0 48%",
+                md: "0 0 30%",
+              },
+              boxSizing: "border-box",
             }}
           >
-            Summer T-Shirt Sale 30%
-          </Typography>
-        </Box>
-        <Grid2 container spacing={3} sx={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
-        {storeData.slice(0, 6).map((product, index) => (
-          <Grid2 item xs={12} sm={6} md={4} key={index}>
             <ProductSectionItem
               id={product.id}
               name={product.name}
@@ -42,11 +59,10 @@ const ProductSection = () => {
               price={product.price}
               totalPrice={product.totalPrice}
             />
-          </Grid2>
+          </Box>
         ))}
-      </Grid2>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
 };
 

@@ -85,6 +85,20 @@ export const productSlice = createSlice({
         state.error = "An error occurred while filtering by color.";
       }
     },
+
+    sortByName(state) {
+      try {
+        const sortedByName = [...state.filtredProducts].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+        state.filtredProducts = sortedByName;
+        sessionStorage.setItem("filtredData", JSON.stringify(sortedByName));
+        state.error = null;
+      } catch (error) {
+        state.error = "An error occurred while sorting products by name.";
+      }
+    },
+
     sortBySize(state, action) {
       try {
         const filteredBySize = state.filtredProducts.filter(
@@ -106,6 +120,8 @@ export const productSlice = createSlice({
   },
 });
 
+
+
 export const {
   filtredProducts,
   singleProduct,
@@ -114,5 +130,6 @@ export const {
   clearFilters,
   filterByColor,
   sortBySize,
+  sortByName
 } = productSlice.actions;
 export default productSlice.reducer;

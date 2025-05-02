@@ -30,22 +30,22 @@ const NavigateButtons = () => {
           paddingY: 2,
         }}
       >
-        {buttons.map((button, index) => (
-          <Box key={index}>
-            <Link to={"/filtredProducts/" + button}>
-              <Button
-                variant="outlined"
-                sx={{
-                  textTransform: "none",
-                  borderColor: "black",
-                  color: "black",
-                  "&:hover": { backgroundColor: "black", color: "white" },
-                }}
-                onClick={() => dispatch(filtredProducts(button))}
-              >
-                {button}
-              </Button>
-            </Link>
+        {buttons.map((button) => (
+          <Box key={button}>
+            <Button
+              component={Link}
+              to={`/filtredProducts/${button}`}
+              variant="outlined"
+              sx={{
+                textTransform: "none",
+                borderColor: "black",
+                color: "black",
+                "&:hover": { backgroundColor: "black", color: "white" },
+              }}
+              onClick={() => dispatch(filtredProducts(button))}
+            >
+              {button}
+            </Button>
           </Box>
         ))}
       </Container>

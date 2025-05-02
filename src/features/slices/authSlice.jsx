@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const validateUsername = (name) => /^[A-Za-z]{4,10}$/i.test(name);
 
 const validatePassword = (password) =>
-  /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,10}$/i.test(
+  /^[A-Za-z]{4,10}$/i.test(
     password
   );
 
@@ -40,7 +40,7 @@ export const authSlice = createSlice({
         authUser: false,
         error: null,
       };
-      localStorage.removeItem("reduxState");
+      localStorage.removeItem("authUser");
     },
     clearError(state) {
       state.user.error = null;

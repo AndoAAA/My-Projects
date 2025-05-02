@@ -31,7 +31,7 @@ const Footer = () => {
           &copy; {year} All Rights Reserved.
         </Typography>
         <Typography variant="body2">
-          Made with www.tarverdyan-projects.net
+          Made with www.tarverdyan-projects.com
         </Typography>
       </Container>
     </Box>

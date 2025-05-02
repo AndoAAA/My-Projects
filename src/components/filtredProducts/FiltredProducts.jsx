@@ -5,7 +5,8 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Grid2,
+  Grid,
+  CircularProgress,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,7 @@ import {
   filterByColor,
   sortBySize,
   filtredProducts,
+  sortByName,
 } from "../../features/slices/productSlice";
 import Error from "../error/Error";
 
@@ -49,11 +51,16 @@ const FiltredProducts = () => {
   const handleSizeClick = (event) => setAnchorElSize(event.currentTarget);
   const handleSizeClose = () => setAnchorElSize(null);
 
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+
   const buttonStyle = {
     color: "black",
     border: "1px solid black",
     "&:hover": { backgroundColor: "black", color: "white" },
     flex: "1",
+    minWidth: "120px",
+    fontSize: "0.9rem",
   };
 
   useEffect(() => {
@@ -71,6 +78,7 @@ const FiltredProducts = () => {
             textTransform: "capitalize",
             marginBottom: 2,
             textAlign: "center",
+            fontSize: { xs: "2rem", md: "2.5rem" },
           }}
         >
           {type || "Products"}
@@ -81,6 +89,7 @@ const FiltredProducts = () => {
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            gap: 2,
           }}
         >
           <Box
@@ -89,6 +98,7 @@ const FiltredProducts = () => {
               gap: 2,
               flexWrap: "wrap",
               justifyContent: "center",
+              flexGrow: 1,
             }}
           >
             {genderButtons.map((gender) => (
@@ -110,6 +120,14 @@ const FiltredProducts = () => {
               Sort by Price
             </Button>
 
+            <Button
+              onClick={() => dispatch(sortByName())}
+              variant="outlined"
+              sx={buttonStyle}
+            >
+              Sort by Name
+            </Button>
+
             {/* Color Filter */}
             <Box>
               <Button
@@ -120,7 +138,7 @@ const FiltredProducts = () => {
                 onClick={handleColorClick}
                 sx={buttonStyle}
               >
-                Select a color
+                Select Color
               </Button>
               <Menu
                 id="color-menu"
@@ -133,6 +151,7 @@ const FiltredProducts = () => {
                   <MenuItem
                     onClick={() => {
                       dispatch(filterByColor(color));
+                      setSelectedColor(color);
                       handleColorClose();
                     }}
                     key={index}
@@ -140,72 +159,166 @@ const FiltredProducts = () => {
                   >
                     <Box
                       sx={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: "50%",
-                        backgroundColor: color,
-                        border: "1px solid #ddd",
-                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
                       }}
-                    />
+                    >
+                      <Box
+                        sx={{
+                          width: 20,
+                          height: 20,
+                          borderRadius: "50%",
+                          backgroundColor: color,
+                          border: "1px solid #aaa",
+                        }}
+                      />
+                      <Typography sx={{ textTransform: "capitalize" }}>
+                        {color}
+                      </Typography>
+                    </Box>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
 
             {/* Size Filter */}
-            <Button
-              id="size-button"
-              disabled={type === "Bags" || type === "Shoes"}
-              aria-controls={openSize ? "size-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={openSize ? "true" : undefined}
-              onClick={handleSizeClick}
-              sx={buttonStyle}
-            >
-              Select a size
-            </Button>
-            <Menu
-              id="size-menu"
-              anchorEl={anchorElSize}
-              open={openSize}
-              onClose={handleSizeClose}
-              MenuListProps={{ "aria-labelledby": "size-button" }}
-            >
-              {sizeButtons.map((size, index) => (
-                <MenuItem
-                  onClick={() => {
-                    dispatch(sortBySize(size));
-                    handleSizeClose();
-                  }}
-                  key={index}
-                >
-                  {size}
-                </MenuItem>
-              ))}
-            </Menu>
+            <Box>
+              <Button
+                id="size-button"
+                disabled={type === "Bags" || type === "Shoes"}
+                aria-controls={openSize ? "size-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openSize ? "true" : undefined}
+                onClick={handleSizeClick}
+                sx={buttonStyle}
+              >
+                Select Size
+              </Button>
+              <Menu
+                id="size-menu"
+                anchorEl={anchorElSize}
+                open={openSize}
+                onClose={handleSizeClose}
+                MenuListProps={{ "aria-labelledby": "size-button" }}
+              >
+                {sizeButtons.map((size, index) => (
+                  <MenuItem
+                    onClick={() => {
+                      dispatch(sortBySize(size));
+                      setSelectedSize(size);
+                      handleSizeClose();
+                    }}
+                    key={index}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                        textAlign: "center",
+                        minWidth: "40px",
+                      }}
+                    >
+                      {size}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           </Box>
 
           <Button
-            onClick={() => dispatch(filtredProducts(type))}
-            sx={buttonStyle}
+            onClick={() => {
+              dispatch(filtredProducts(type));
+              setSelectedColor(null);
+              setSelectedSize(null);
+            }}
+            sx={{ backgroundColor: "black", color: "white" }}
           >
-            Clear filter
+            Clear Filter
           </Button>
         </Box>
       </Box>
 
-      {/* Product Grid */}
-      {error ? (
+      {(selectedColor || selectedSize) && (
+        <Typography
+          sx={{
+            fontSize: "0.9rem",
+            color: "gray",
+            textAlign: "center",
+            marginTop: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          {(selectedColor || selectedSize) && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                marginTop: 2,
+                flexWrap: "wrap",
+                paddingBottom: "30px",
+              }}
+            >
+              {products.length > 0 && (
+                <Typography variant="body2" sx={{ color: "gray" }}>
+                  {products.length} products found
+                </Typography>
+              )}
+
+              {selectedColor && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                  }}
+                >
+                  <Typography variant="body2" sx={{ color: "gray" }}>
+                    Color:
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: "50%",
+                      backgroundColor: selectedColor,
+                      border: "1px solid #ccc",
+                    }}
+                  />
+                </Box>
+              )}
+
+              {selectedSize && (
+                <Typography variant="body2" sx={{ color: "gray" }}>
+                  Size: {selectedSize}
+                </Typography>
+              )}
+            </Box>
+          )}
+        </Typography>
+      )}
+
+      {/* Loading Spinner */}
+      {products.length === 0 && !error ? (
+        <Box sx={{ display: "flex", justifyContent: "center", padding: 4 }}>
+          <CircularProgress />
+        </Box>
+      ) : error ? (
         <Error />
       ) : products.length > 0 ? (
-        <Grid2
+        <Grid
           container
           spacing={4}
           sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
         >
           {products.map((product) => (
-            <Grid2
+            <Grid
               item
               xs={12}
               sm={6}
@@ -220,9 +333,9 @@ const FiltredProducts = () => {
               }}
             >
               <ProductCard {...product} />
-            </Grid2>
+            </Grid>
           ))}
-        </Grid2>
+        </Grid>
       ) : (
         <Typography variant="h6" sx={{ textAlign: "center" }}>
           No products available.

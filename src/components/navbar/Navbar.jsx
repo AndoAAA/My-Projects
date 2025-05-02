@@ -26,6 +26,7 @@ const Navbar = () => {
   const totalAmount = useSelector((state) => state.card.totalAmount);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
   const { name, image } = user || {};
   const navigate = useNavigate();
 
@@ -112,7 +113,7 @@ const Navbar = () => {
             <>
               <Tooltip title={name}>
                 <Avatar
-                  src={image}
+                  src={typeof image === "string" ? image : image?.url || ""}
                   alt="avatar"
                   sx={{ width: 32, height: 32, cursor: "pointer" }}
                   onClick={handleMenu}
@@ -126,7 +127,7 @@ const Navbar = () => {
                   fontWeight: "500",
                 }}
               >
-               Hi {name}
+                Hi {name}
               </Typography>
               <Menu
                 anchorEl={anchorEl}

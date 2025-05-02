@@ -44,7 +44,7 @@ const ProductCard = ({ id, name, text, price, colors, img }) => {
             fontSize: {
               xs: "1.1rem",
               sm: "1.3rem",
-              md: "1.5rem",
+              md: "1.4rem",
             },
           }}
         >
@@ -66,10 +66,7 @@ const ProductCard = ({ id, name, text, price, colors, img }) => {
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", color: "green" }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", color: "green" }}>
             {price} $
           </Typography>
 

@@ -66,10 +66,11 @@ const Login = () => {
       return false;
     }
 
-    if (!/^[A-Za-z]{4,10}$/.test(values.password)) {
-      setError("Password must be 4-10 characters, include a number, a letter.");
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,10}$/.test(values.password)) {
+      setError("Password must be 4-10 characters, include letters and numbers.");
       return false;
     }
+    
     return true;
   };
 
@@ -78,7 +79,17 @@ const Login = () => {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    dispatch(login(values));
+    try {
+      await dispatch(login({ ...values, image: values.image || "" }));
+      alert("You have successfully logged in");
+      window.location.href = "/";
+    } catch (err) {
+      setError("Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+    
+    
     setValues({ name: "", password: "", image: "" });
     setPreview(null);
     setError("");
