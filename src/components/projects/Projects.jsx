@@ -40,9 +40,9 @@ function Projects() {
           justifyContent: "center",
         }}
       >
-        {projects.map((project, id) => (
+        {projects.map((project) => (
           <Card
-            key={id}
+            key={project.title}
             sx={{
               maxWidth: 400,
               margin: "auto",
@@ -78,20 +78,12 @@ function Projects() {
                 variant="h5"
                 sx={{
                   fontWeight: "bold",
-                  color:
-                    "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
                   marginBottom: "15px",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
                 }}
               >
                 {project.title}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ color: "#ddd", marginBottom: "20px" }}
-              >
-                {project.description}
               </Typography>
               <Box
                 sx={{
@@ -102,9 +94,9 @@ function Projects() {
                   marginBottom: "20px",
                 }}
               >
-                {project.skills.map((skill, id) => (
+                {project.skills.map((skill) => (
                   <Typography
-                    key={id}
+                    key={project.link}
                     variant="caption"
                     sx={{
                       background:

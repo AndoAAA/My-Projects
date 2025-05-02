@@ -38,6 +38,7 @@ function Contact() {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [messageStatus, setMessageStatus] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,6 +62,8 @@ function Contact() {
     if (!validateForm()) return;
 
     setLoading(true);
+    setMessageStatus(""); // Resetting status message before submitting
+
     try {
       await emailjs.send(
         "service_mo2qbbv",
@@ -73,11 +76,11 @@ function Contact() {
         "W_R8qr82NdANY4Wtl"
       );
 
-      alert("Message sent successfully!");
+      setMessageStatus("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Email sending failed:", error);
-      alert("Failed to send message. Please try again later.");
+      setMessageStatus("Failed to send message. Please try again later.");
     }
     setLoading(false);
   };
@@ -108,10 +111,11 @@ function Contact() {
         Feel free to reach out anytime!
       </Typography>
 
+      {/* Contact Links */}
       <Box
         sx={{
           display: "flex",
-          flexWrap:"wrap",
+          flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
@@ -151,6 +155,20 @@ function Contact() {
         ))}
       </Box>
 
+      {/* Success/Error Message */}
+      {messageStatus && (
+        <Typography
+          variant="h6"
+          sx={{
+            color: messageStatus.includes("success") ? "green" : "red",
+            marginBottom: "20px",
+          }}
+        >
+          {messageStatus}
+        </Typography>
+      )}
+
+      {/* Contact Form */}
       <Box
         component="form"
         onSubmit={handleSubmit}

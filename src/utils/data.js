@@ -19,34 +19,29 @@ import vercel from "../assets/Vercel.png";
 
 export const projects = [
   {
-    title: "Ecommerce 1",
+    title: "Responsive Online Store Developed in React",
     imageSrc: ecommerce1,
-    description:
-      "Responsive E-Commerce Website Tutorial Using ReactJs and Redux Toolkit.",
     skills: ["React JS", "Redux", "Material UI"],
     link: "https://firdus.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
-    title: "Ecommerce 2",
+    title: "Modern E-commerce Website Built with React",
     imageSrc: ecommerce2,
-    description: "Ecommerce Web Store using ReactJS and Redux Toolkit.",
     skills: ["React", "Material UI", "Redux"],
     link: "https://malatia.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
-    title: "Booking Hotels",
+    title: "Responsive Hotel Reservation System with React",
     imageSrc: hotel,
-    description: "React Booking Hotels App Tutorial Using ReactJs.",
     skills: ["React JS", "Material UI"],
     link: "https://hotels.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
   {
-    title: "Pizza Delivery",
+    title: "Pizza Delivery Web App with React & TypeScript",
     imageSrc: pizza,
-    description: "Pizza Delivery Website.",
     skills: ["React JS", "Redux Toolkit", "Material UI", "TypeScript"],
     link: "https://pizza.tarverdyan-projects.com/",
     source:
@@ -54,10 +49,8 @@ export const projects = [
   },
 
   {
-    title: "El CLot Library",
+    title: "Online Book Library Platform | Built with React and TypeScript",
     imageSrc: library,
-    description:
-      "Library API | React JS, Library Website using the Library API",
     skills: ["React JS", "Material UI", "Axios", "Redux Toolkit", "TypeScript"],
     link: "https://library.tarverdyan-projects.com/",
     source:
