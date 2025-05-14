@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -5,10 +6,43 @@ import {
   FormControlLabel,
   TextField,
   Typography,
+  IconButton,
 } from "@mui/material";
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (!username || !password) {
+      setError("Both username and password are required.");
+      return;
+    }
+
+    const userCredentials = {
+      username,
+      email: "example@example.com",
+      password,
+    };
+
+    dispatch(login(userCredentials));
+
+    if (user) {
+      navigate("/");
+    } else {
+      setError("Invalid username or password.");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -18,8 +52,22 @@ function Login() {
         minHeight: "100vh",
         backgroundColor: "#f5f5f5",
         padding: 4,
+        position: "relative",
       }}
     >
+      <IconButton
+        onClick={() => navigate("/")}
+        sx={{
+          position: "absolute",
+          top: 20,
+          left: 20,
+          color: "gray",
+          "&:hover": { backgroundColor: "transparent" },
+        }}
+      >
+        <ArrowBackIcon />
+      </IconButton>
+
       <Box
         sx={{
           backgroundColor: "white",
@@ -36,12 +84,22 @@ function Login() {
         >
           Login
         </Typography>
-        <form>
+        <form onSubmit={handleLogin}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {error && (
+              <Typography
+                variant="body2"
+                sx={{ color: "red", textAlign: "center", marginBottom: 2 }}
+              >
+                {error}
+              </Typography>
+            )}
             <TextField
               fullWidth
               type="text"
               label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
               variant="outlined"
               required
@@ -50,6 +108,8 @@ function Login() {
               fullWidth
               type="password"
               label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               variant="outlined"
               required
@@ -79,21 +139,16 @@ function Login() {
               sx={{
                 backgroundColor: "teal",
                 color: "white",
-                "&:hover": {
-                  backgroundColor: "darkcyan",
-                },
+                "&:hover": { backgroundColor: "darkcyan" },
               }}
             >
               Login
             </Button>
             <Typography
               variant="body2"
-              sx={{
-                marginTop: 2,
-                textAlign: "center",
-              }}
+              sx={{ marginTop: 2, textAlign: "center" }}
             >
-              Don't have an account?{" "} 
+              Don't have an account?{" "}
               <a
                 href="/register"
                 style={{

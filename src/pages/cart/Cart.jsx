@@ -16,10 +16,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { minusItem, plusItem, removeFromCart } from "../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -60,6 +62,7 @@ function Cart() {
                   backgroundColor: "darkslategray",
                 },
               }}
+              onClick={() => navigate("/products")}
             >
               Continue Shopping
             </Button>
@@ -73,21 +76,29 @@ function Cart() {
                   key={index}
                   sx={{
                     display: "flex",
+                    flexDirection: { xs: "column", sm: "row" },
                     alignItems: "center",
                     justifyContent: "space-between",
                     mb: 3,
                     p: 2,
-                    boxShadow: 2,
+                    boxShadow: 3,
                     borderRadius: 3,
+                    transition: "0.3s ease",
                     "&:hover": {
-                      boxShadow: 4,
-                      backgroundColor: "#f9f9f9",
+                      boxShadow: 6,
+                      backgroundColor: "#f5f5f5",
                     },
                     gap: 2,
                   }}
                 >
                   {/* Product Info */}
-                  <Box display="flex" alignItems="center" gap={2} flex={1}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    flex={2}
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     <img
                       src={item.img}
                       alt={item.title}
@@ -98,18 +109,24 @@ function Cart() {
                         borderRadius: 8,
                       }}
                     />
-                    <Typography fontWeight="bold">{item.title}</Typography>
+                    <Box>
+                      <Typography fontWeight="bold" fontSize="1.1rem">
+                        {item.title}
+                      </Typography>
+                      <Typography fontSize="0.9rem" color="text.secondary">
+                        Color: <b>{item.color}</b> | Size: <b>{item.size}</b>
+                      </Typography>
+                    </Box>
                   </Box>
 
-                  {/* Price */}
-                  <Box>
-                    <Typography fontSize="1rem">
-                      ${item.price.toFixed(2)}
-                    </Typography>
-                  </Box>
-
-                  {/* Quantity Controls */}
-                  <Box display="flex" alignItems="center" gap={1}>
+                  {/* Quantity & Controls */}
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={1}
+                    flexDirection="row"
+                    justifyContent="center"
+                  >
                     <IconButton
                       onClick={() => dispatch(minusItem(item))}
                       size="small"
@@ -139,10 +156,13 @@ function Cart() {
                     </IconButton>
                   </Box>
 
-                  {/* Total */}
-                  <Box>
-                    <Typography fontSize="1rem">
-                      ${parseFloat(item.price * item.quantity).toFixed(2)}
+                  {/* Price Info */}
+                  <Box textAlign="center">
+                    <Typography fontSize="0.95rem">
+                      Unit: ${item.price.toFixed(2)}
+                    </Typography>
+                    <Typography fontWeight="bold" fontSize="1rem" color="teal">
+                      Total: ${(item.price * item.quantity).toFixed(2)}
                     </Typography>
                   </Box>
 
@@ -221,6 +241,7 @@ function Cart() {
                     background: "darkslategray",
                   },
                 }}
+                onClick={() => navigate("/checkout")}
               >
                 Proceed to Checkout
               </Button>

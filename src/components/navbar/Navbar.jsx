@@ -1,66 +1,20 @@
 import React from "react";
-import {
-  AppBar,
-  Box,
-  Button,
-  Toolbar,
-  Typography,
-  IconButton,
-  Badge,
-} from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
+import { AppBar, Box, Button, Toolbar, IconButton, Badge, Typography } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import HomeIcon from "@mui/icons-material/Home";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.grey[200], 0.15),
-  "&:hover, &:focus-within": {
-    backgroundColor: alpha(theme.palette.grey[200], 0.25),
-    boxShadow: "0 0 4px rgba(0,0,0,0.2)",
-  },
-  marginLeft: theme.spacing(2),
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import { logout } from "../../redux/authSlice";
 
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalItems = cartItems.length;
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -72,32 +26,7 @@ function Navbar() {
           boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* Left Side */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              sx={{
-                mr: 2,
-                fontWeight: "bold",
-                cursor: "pointer",
-                "&:hover": { color: "teal" },
-              }}
-            >
-              EN
-            </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-          </Box>
-
+        <Toolbar sx={{ justifyContent: "space-around" }}>
           {/* Home Icon */}
           <NavLink to="/">
             <IconButton
@@ -113,44 +42,56 @@ function Navbar() {
 
           {/* Right Side */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <NavLink
-              to="/register"
-              style={({ isActive }) => ({
-                textDecoration: "none",
-                color: isActive ? "teal" : "black",
-              })}
-            >
+            {user ? (
+              // Displaying the user's name or avatar
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                Welcome {user.username}
+              </Typography>
+            ) : (
+              <>
+                <NavLink to="/register" style={{ color: "black" }}>
+                  <Button
+                    color="inherit"
+                    aria-label="Register"
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      "&:hover": { color: "teal" },
+                    }}
+                  >
+                    Register
+                  </Button>
+                </NavLink>
+                <NavLink to="/login" style={{ color: "black" }}>
+                  <Button
+                    color="inherit"
+                    aria-label="Login"
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      "&:hover": { color: "teal" },
+                    }}
+                  >
+                    Login
+                  </Button>
+                </NavLink>
+              </>
+            )}
+
+            {user && (
               <Button
                 color="inherit"
-                aria-label="Register"
+                onClick={handleLogout}
                 sx={{
                   fontWeight: "bold",
                   textTransform: "none",
                   "&:hover": { color: "teal" },
                 }}
               >
-                Register
+                Logout
               </Button>
-            </NavLink>
-            <NavLink
-              to="/login"
-              style={({ isActive }) => ({
-                textDecoration: "none",
-                color: isActive ? "teal" : "black",
-              })}
-            >
-              <Button
-                color="inherit"
-                aria-label="Login"
-                sx={{
-                  fontWeight: "bold",
-                  textTransform: "none",
-                  "&:hover": { color: "teal" },
-                }}
-              >
-                Login
-              </Button>
-            </NavLink>
+            )}
+
             <NavLink to="/cart">
               <IconButton aria-label="View cart" sx={{ color: "black" }}>
                 <Badge
