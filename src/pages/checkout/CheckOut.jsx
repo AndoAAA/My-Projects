@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -6,17 +6,43 @@ import {
   TextField,
   Typography,
   Paper,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
+import { clearCart } from "../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const orderDetails = {
+      items: cartItems,
+      totalPrice,
+    };
+
+    console.log("Order placed:", orderDetails);
+
+    setOpenSnackbar(true);
+
+    dispatch(clearCart());
+
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
 
   return (
     <>
@@ -27,7 +53,7 @@ function Checkout() {
             Checkout
           </Typography>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <TextField label="Full Name" fullWidth required margin="normal" />
             <TextField
               label="Email"
@@ -75,6 +101,18 @@ function Checkout() {
         </Paper>
       </Container>
       <Footer />
+
+      {/* Snackbar Alert */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert severity="success" variant="filled" sx={{ width: "100%" }}>
+          Your order has been placed successfully.
+        </Alert>
+      </Snackbar>
     </>
   );
 }

@@ -71,9 +71,9 @@ function Cart() {
           <>
             {/* Cart Items */}
             <Box>
-              {cartItems.map((item, index) => (
+              {cartItems.map((item) => (
                 <Card
-                  key={index}
+                  key={item.id}
                   sx={{
                     display: "flex",
                     flexDirection: { xs: "column", sm: "row" },
@@ -113,8 +113,26 @@ function Cart() {
                       <Typography fontWeight="bold" fontSize="1.1rem">
                         {item.title}
                       </Typography>
+
+                      <Box display="flex" alignItems="center" gap={1}>
+                        <Typography fontSize="0.9rem" color="text.secondary">
+                          Color:
+                        </Typography>
+                        {item.selectedColor && (
+                          <Box
+                            sx={{
+                              backgroundColor: item.selectedColor,
+                              width: 20,
+                              height: 20,
+                              borderRadius: "50%",
+                              border: "1px solid gray",
+                            }}
+                          />
+                        )}
+                      </Box>
+
                       <Typography fontSize="0.9rem" color="text.secondary">
-                        Color: <b>{item.color}</b> | Size: <b>{item.size}</b>
+                        Size: <b>{item.selectedSize}</b>
                       </Typography>
                     </Box>
                   </Box>
@@ -128,7 +146,9 @@ function Cart() {
                     justifyContent="center"
                   >
                     <IconButton
-                      onClick={() => dispatch(minusItem(item))}
+                      onClick={() =>
+                        item.quantity > 1 && dispatch(minusItem(item))
+                      }
                       size="small"
                       sx={{
                         backgroundColor: "teal",
@@ -168,7 +188,14 @@ function Cart() {
 
                   {/* Remove Button */}
                   <IconButton
-                    onClick={() => dispatch(removeFromCart(item))}
+                    onClick={() => {
+                      const confirm = window.confirm(
+                        `Remove "${item.title}" from cart?`
+                      );
+                      if (confirm) {
+                        dispatch(removeFromCart(item));
+                      }
+                    }}
                     aria-label={`Remove ${item.title}`}
                     sx={{
                       color: "red",
