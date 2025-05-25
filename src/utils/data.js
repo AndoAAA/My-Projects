@@ -10,7 +10,6 @@ import redux from "../assets/redux.png";
 import sass from "../assets/sass.png";
 import ecommerce1 from "../assets/projectPhotos/ecommerce-1.jpg";
 import ecommerce2 from "../assets/projectPhotos/ecommerce-2.jpg";
-import hotel from "../assets/projectPhotos/hotel.jpg";
 import pizza from "../assets/projectPhotos/pizza.jpg";
 import library from "../assets/projectPhotos/library.jpg";
 import typescript from "../assets/typescript.png";
@@ -32,13 +31,7 @@ export const projects = [
     link: "https://malatia.tarverdyan-projects.com/",
     source: "https://github.com/AndoAAA/My-Projects",
   },
-  {
-    title: "Responsive Hotel Reservation System with React",
-    imageSrc: hotel,
-    skills: ["React JS", "Material UI"],
-    link: "https://hotels.tarverdyan-projects.com/",
-    source: "https://github.com/AndoAAA/My-Projects",
-  },
+
   {
     title: "Pizza Delivery Web App with React & TypeScript",
     imageSrc: pizza,

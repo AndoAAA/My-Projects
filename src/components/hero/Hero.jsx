@@ -10,8 +10,8 @@ function Hero() {
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
         justifyContent: "space-around",
-        height: "100vh",
-        padding: "0 20px",
+        paddingY: { xs: "30px", md: "100px" },
+        paddingX: "20px",
         background:
           "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
       }}
@@ -68,7 +68,6 @@ function Hero() {
           height: "auto",
           display: "flex",
           justifyContent: "center",
-          mt: { xs: -20, md: 0 },
         }}
       >
         <img
