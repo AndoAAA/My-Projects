@@ -68,6 +68,7 @@ function Hero() {
           height: "auto",
           display: "flex",
           justifyContent: "center",
+          mt: { xs: -20, md: 0 },
         }}
       >
         <img

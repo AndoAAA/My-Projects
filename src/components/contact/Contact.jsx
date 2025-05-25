@@ -118,8 +118,15 @@ function Contact() {
           flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
-          gap: "20px",
+          gap: { xs: "15px", md: "20px" },
           marginBottom: "40px",
+          "& > a": {
+            flexBasis: { xs: "auto", sm: "auto" },
+            minWidth: { xs: "180px", sm: "auto" },
+            justifyContent: "center",
+            fontSize: { xs: "1rem", md: "1.2rem" },
+            padding: { xs: "10px 18px", md: "15px 25px" },
+          },
         }}
       >
         {contactLinks.map((item, index) => (
