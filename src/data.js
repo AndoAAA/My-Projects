@@ -147,7 +147,7 @@ export const allProducts = [
   {
     id: 5,
     img: products5,
-    title: "faux suede jacket",
+    title: "Faux suede jacket",
     price: 54.99,
   },
   {
@@ -177,43 +177,43 @@ export const allProducts = [
   {
     id: 10,
     img: products10,
-    title: "long sleeve top",
+    title: "Long sleeve top",
     price: 24.99,
   },
   {
     id: 11,
     img: products11,
-    title: "long fur coat",
+    title: "Long fur coat",
     price: 69.99,
   },
   {
     id: 12,
     img: products12,
-    title: "sweatshirt",
+    title: "Sweatshirt",
     price: 25.99,
   },
   {
     id: 13,
     img: products13,
-    title: "long jacket",
+    title: "Long jacket",
     price: 64.99,
   },
   {
     id: 14,
     img: products14,
-    title: "long vest",
+    title: "Long vest",
     price: 52.99,
   },
   {
     id: 15,
     img: products15,
-    title: "winter suits",
+    title: "Winter suits",
     price: 89.99,
   },
   {
     id: 16,
     img: products16,
-    title: "t-shirt",
+    title: "T-shirt",
     price: 20.99,
   },
 ];
