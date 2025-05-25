@@ -9,6 +9,8 @@ import {
   Typography,
   Snackbar,
   Alert,
+  Stack,
+  Divider,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
@@ -43,8 +45,8 @@ function SingleProduct() {
     return (
       <>
         <Navbar />
-        <Box textAlign="center" mt={5}>
-          <Typography variant="h4" color="error">
+        <Box textAlign="center" mt={10}>
+          <Typography variant="h4" color="error" fontWeight={600}>
             Product not found!
           </Typography>
         </Box>
@@ -57,66 +59,99 @@ function SingleProduct() {
     <>
       <Navbar />
       <Box
+        component="main"
+        maxWidth="1200px"
+        mx="auto"
+        px={{ xs: 2, sm: 3, md: 4 }}
+        py={{ xs: 4, md: 8 }}
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
-        p={{ xs: 2, md: 4 }}
-        alignItems={{ xs: "center", md: "flex-start" }}
+        gap={6}
       >
         {/* Image */}
-        <Box flex={1} textAlign="center">
+        <Box
+          flex={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            boxShadow: 3,
+            borderRadius: 3,
+            overflow: "hidden",
+            bgcolor: "#f9f9f9",
+            minHeight: { xs: 300, md: 450 },
+          }}
+        >
           <img
             src={product.img}
             alt={product.title}
             style={{
               maxWidth: "100%",
-              maxHeight: "400px",
-              borderRadius: 8,
+              maxHeight: "100%",
+              objectFit: "contain",
+              display: "block",
             }}
           />
         </Box>
 
-        {/* Details */}
-        <Box flex={1} px={2}>
+        {/* Product Details */}
+        <Box flex={1} display="flex" flexDirection="column" gap={3}>
           <Typography
-            variant="h4"
-            gutterBottom
-            sx={{ fontWeight: 600 }}
+            variant="h3"
+            component="h1"
+            fontWeight={700}
+            letterSpacing={1}
+            color="text.primary"
           >
             {product.title}
           </Typography>
 
-          <Typography variant="h6" color="teal" gutterBottom>
+          <Typography
+            variant="h5"
+            color="teal"
+            fontWeight={700}
+            sx={{ letterSpacing: 0.5 }}
+          >
             ${product.price.toFixed(2)}
           </Typography>
 
           {product.stock <= 5 && (
-            <Typography variant="subtitle2" color="error">
+            <Typography
+              variant="body2"
+              color="error"
+              fontWeight={600}
+              sx={{ mb: 2 }}
+            >
               Hurry! Only {product.stock} left in stock.
             </Typography>
           )}
 
+          <Divider />
+
           {/* Colors */}
-          <Box my={3}>
-            <Typography variant="h6">Colors</Typography>
-            <Box display="flex" gap={1} mt={1}>
+          <Box>
+            <Typography variant="h6" fontWeight={600} mb={1}>
+              Colors
+            </Typography>
+            <Stack direction="row" spacing={2}>
               {colors.map((color) => (
                 <Box
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   sx={{
-                    backgroundColor: color,
-                    width: 30,
-                    height: 30,
+                    width: 36,
+                    height: 36,
                     borderRadius: "50%",
+                    bgcolor: color,
                     cursor: "pointer",
-                    outline:
+                    border:
                       selectedColor === color
-                        ? `3px solid ${color}`
-                        : "none",
-                    outlineOffset: "3px",
+                        ? "3px solid teal"
+                        : "2px solid transparent",
+                    transition: "all 0.3s ease",
                     "&:hover": {
-                      transform: "scale(1.1)",
-                      transition: "transform 0.2s ease",
+                      transform: "scale(1.15)",
+                      borderColor: "teal",
                     },
                   }}
                   role="button"
@@ -129,93 +164,106 @@ function SingleProduct() {
                   }}
                 />
               ))}
-            </Box>
+            </Stack>
           </Box>
 
           {/* Sizes */}
-          <Box my={3}>
-            <Typography variant="h6">Sizes</Typography>
-            <Box display="flex" gap={2} mt={1}>
+          <Box>
+            <Typography variant="h6" fontWeight={600} mb={1}>
+              Sizes
+            </Typography>
+            <Stack direction="row" spacing={2}>
               {sizes.map((size) => (
                 <Button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  variant={
-                    selectedSize === size ? "contained" : "outlined"
-                  }
+                  variant={selectedSize === size ? "contained" : "outlined"}
+                  color="primary"
                   sx={{
+                    borderRadius: 2,
+                    minWidth: 48,
+                    fontWeight: 600,
+                    textTransform: "uppercase",
                     borderColor: "teal",
-                    color:
-                      selectedSize === size ? "white" : "teal",
-                    backgroundColor:
-                      selectedSize === size ? "teal" : "transparent",
+                    color: selectedSize === size ? "white" : "teal",
+                    bgcolor: selectedSize === size ? "teal" : "transparent",
                     "&:hover": {
-                      backgroundColor: "darkslategray",
+                      bgcolor: "darkslategray",
                       color: "white",
                     },
-                    borderRadius: "12px",
-                    textTransform: "none",
                   }}
                 >
                   {size}
                 </Button>
               ))}
-            </Box>
+            </Stack>
           </Box>
 
           {/* Quantity */}
-          <Box my={3}>
-            <Typography variant="h6">Quantity</Typography>
-            <Box display="flex" alignItems="center" gap={2} mt={1}>
+          <Box>
+            <Typography variant="h6" fontWeight={600} mb={1}>
+              Quantity
+            </Typography>
+            <Stack direction="row" alignItems="center" spacing={2}>
               <Button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 disabled={quantity === 1}
                 variant="outlined"
                 sx={{
-                  minWidth: 36,
+                  minWidth: 40,
+                  height: 40,
                   color: "teal",
                   borderColor: "teal",
+                  fontWeight: "bold",
+                  fontSize: "1.25rem",
                   "&:hover": {
-                    backgroundColor: "teal",
+                    bgcolor: "teal",
                     color: "white",
                   },
                 }}
               >
-                -
+                −
               </Button>
-              <Typography>{quantity}</Typography>
+              <Typography variant="h6" minWidth={24} textAlign="center">
+                {quantity}
+              </Typography>
               <Button
                 onClick={() => setQuantity((q) => q + 1)}
                 variant="outlined"
                 sx={{
-                  minWidth: 36,
+                  minWidth: 40,
+                  height: 40,
                   color: "teal",
                   borderColor: "teal",
+                  fontWeight: "bold",
+                  fontSize: "1.25rem",
                   "&:hover": {
-                    backgroundColor: "teal",
+                    bgcolor: "teal",
                     color: "white",
                   },
                 }}
               >
                 +
               </Button>
-            </Box>
+            </Stack>
           </Box>
 
-          {/* Add to Cart Button */}
+          {/* Add to Cart */}
           <Box mt={4}>
             <Button
               variant="contained"
               onClick={handleAddToCart}
+              fullWidth
               sx={{
-                backgroundColor: "teal",
-                color: "white",
-                padding: "10px 24px",
-                borderRadius: "12px",
+                bgcolor: "teal",
+                py: 1.5,
+                fontSize: "1.1rem",
+                fontWeight: 700,
+                borderRadius: 3,
                 "&:hover": {
-                  backgroundColor: "darkslategray",
+                  bgcolor: "darkslategray",
                 },
-                textTransform: "capitalize",
+                textTransform: "none",
               }}
             >
               Add to cart
