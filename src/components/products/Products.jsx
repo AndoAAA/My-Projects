@@ -78,6 +78,7 @@ function Products({ items, heading }) {
                   left: 0,
                   right: 0,
                   padding: "0 10px",
+                  gap:2
                 }}
               >
                 <Button
