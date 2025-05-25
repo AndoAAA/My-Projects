@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, useMediaQuery } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import React from "react";
@@ -9,10 +9,15 @@ import {
   prevSlide,
 } from "../../features/slices/sliderSlice";
 import { sliderData } from "../../assets/data/dummyData";
+import { useSwipeable } from "react-swipeable";
+import { useTheme } from "@mui/material/styles";
 
 const Slider = () => {
   const dispatch = useDispatch();
   const slideIndex = useSelector((state) => state.slider.value);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleNextSlide = () => {
     dispatch(nextSlide());
@@ -22,110 +27,124 @@ const Slider = () => {
     dispatch(prevSlide());
   };
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => handleNextSlide(),
+    onSwipedRight: () => handlePrevSlide(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   return (
-    <>
-      <Box
+    <Box
+      sx={{
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        paddingBlock: "30px",
+      }}
+      {...swipeHandlers}
+    >
+      <Container
         sx={{
-          position: "relative",
-          overflow: "hidden",
-          width: "100%",
-          paddingBlock: "30px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Container
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {sliderData.map((item, index) => (
-            <Box
-              key={item.id}
+        {sliderData.map((item, index) => (
+          <Box
+            key={item.id}
+            sx={{
+              display: index === slideIndex ? "block" : "none",
+              transition: "opacity 0.5s ease-in-out",
+            }}
+          >
+            <img
+              src={item.img}
+              alt="slider-item"
+              style={{
+                maxHeight: "850px",
+                width: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <Typography
+              variant="h6"
               sx={{
-                display: index === slideIndex ? "block" : "none",
-                transition: "opacity 0.5s ease-in-out",
+                textAlign: "center",
               }}
             >
-              <img
-                src={item.img}
-                alt="slider-item"
-                style={{
-                  maxHeight: "850px",
-                  width: "100%",
-                  objectFit: "cover",
-                }}
-              />
-              <Typography
-                variant="h6"
-                sx={{
-                  textAlign: "center",
-                }}
-              >
-                {item.text}
-              </Typography>
-            </Box>
-          ))}
-        </Container>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "16px",
-            gap: "8px",
-          }}
-        >
-          {sliderData.map((_, index) => (
-            <Button
-              key={index}
-              onClick={() => dispatch(dotSlide(index))}
-              aria-label={`Go to slide ${index + 1}`}
-              sx={{
-                width: "22px",
-                height: "22px",
-                minWidth: "12px",
-                borderRadius: "50%",
-                backgroundColor: index === slideIndex ? "black" : "gray",
-                "&:hover": { backgroundColor: "black" },
-                padding: 1,
-              }}
-            ></Button>
-          ))}
-        </Box>
-        <Button
-          onClick={handlePrevSlide}
-          aria-label="Previous slide"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "60px",
-            transform: "translateY(-50%)",
-            zIndex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            color: "white",
-            "&:hover": { backgroundColor: "gray" },
-          }}
-        >
-          <ArrowBackIosNewIcon />
-        </Button>
-        <Button
-          onClick={handleNextSlide}
-          aria-label="Next slide"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            right: "60px",
-            transform: "translateY(-50%)",
-            zIndex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            color: "white",
-            "&:hover": { backgroundColor: "gray" },
-          }}
-        >
-          <ArrowForwardIosIcon />
-        </Button>
+              {item.text}
+            </Typography>
+          </Box>
+        ))}
+      </Container>
+
+      {/* Dots */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "16px",
+          gap: "8px",
+        }}
+      >
+        {sliderData.map((_, index) => (
+          <Button
+            key={index}
+            onClick={() => dispatch(dotSlide(index))}
+            aria-label={`Go to slide ${index + 1}`}
+            sx={{
+              width: "22px",
+              height: "22px",
+              minWidth: "12px",
+              borderRadius: "50%",
+              backgroundColor: index === slideIndex ? "black" : "gray",
+              "&:hover": { backgroundColor: "black" },
+              padding: 1,
+            }}
+          ></Button>
+        ))}
       </Box>
-    </>
+
+      {/* Navigation Arrows – Hidden on Mobile */}
+      {!isMobile && (
+        <>
+          <Button
+            onClick={handlePrevSlide}
+            aria-label="Previous slide"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "60px",
+              transform: "translateY(-50%)",
+              zIndex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              color: "white",
+              "&:hover": { backgroundColor: "gray" },
+            }}
+          >
+            <ArrowBackIosNewIcon />
+          </Button>
+          <Button
+            onClick={handleNextSlide}
+            aria-label="Next slide"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              right: "60px",
+              transform: "translateY(-50%)",
+              zIndex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              color: "white",
+              "&:hover": { backgroundColor: "gray" },
+            }}
+          >
+            <ArrowForwardIosIcon />
+          </Button>
+        </>
+      )}
+    </Box>
   );
 };
 
