@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Grid2,
 } from "@mui/material";
 import React from "react";
 import { projects } from "../../utils/data";
@@ -41,124 +42,122 @@ function Projects() {
         }}
       >
         {projects.map((project) => (
-          <Card
-            key={project.title}
-            sx={{
-              maxWidth: 400,
-              margin: "auto",
-              borderRadius: "12px",
-              boxShadow: "0 6px 12px rgba(255, 255, 255, 0.1)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              "&:hover": {
-                transform: "scale(1.05)",
-                boxShadow: "0 12px 24px rgba(255, 255, 255, 0.2)",
-              },
-              backgroundColor: "#0f2349",
-              color: "#fff",
-            }}
-          >
-            <CardMedia
-              component="img"
-              height="220"
-              image={project.imageSrc}
-              alt={project.title}
+          <Grid2 key={project.title} item xs={12} sm={6} md={4}>
+            <Card
               sx={{
-                objectFit: "cover",
-                borderTopLeftRadius: "12px",
-                borderTopRightRadius: "12px",
-                filter: "brightness(0.85)",
-                transition: "filter 0.3s ease",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: 400,
+                margin: "auto",
+                borderRadius: "12px",
+                boxShadow: "0 6px 12px rgba(255, 255, 255, 0.1)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 "&:hover": {
-                  filter: "brightness(1)",
+                  transform: "scale(1.05)",
+                  boxShadow: "0 12px 24px rgba(255, 255, 255, 0.2)",
                 },
+                backgroundColor: "#0f2349",
+                color: "#fff",
               }}
-            />
-            <CardContent>
-              <Typography
-                variant="h5"
+            >
+              <CardMedia
+                component="img"
+                image={project.imageSrc}
+                alt={project.title}
                 sx={{
-                  fontWeight: "bold",
-                  marginBottom: "15px",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
+                  height: 200,
+                  width: "100%",
+                  objectFit: project.title.includes("Clinic")
+                    ? "contain"
+                    : "cover",
+                  backgroundColor: "#fff",
                 }}
-              >
-                {project.title}
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "8px",
-                  justifyContent: "center",
-                  marginBottom: "20px",
-                }}
-              >
-                {project.skills.map((skill) => (
-                  <Typography
-                    key={project.link}
-                    variant="caption"
+              />
+
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" gutterBottom>
+                  {project.title}
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "8px",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {project.skills.map((skill) => (
+                    <Typography
+                      key={skill}
+                      variant="caption"
+                      sx={{
+                        background:
+                          "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
+                        color: "white",
+                        padding: "6px 12px",
+                        borderRadius: "20px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {skill}
+                    </Typography>
+                  ))}
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "15px",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    href={project.link}
+                    target="_blank"
                     sx={{
                       background:
-                        "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
+                        "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
                       color: "white",
-                      padding: "6px 12px",
-                      borderRadius: "20px",
                       fontWeight: "bold",
+                      textTransform: "none",
+                      padding: "8px 16px",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
+                        color: "white",
+                      },
                     }}
                   >
-                    {skill}
-                  </Typography>
-                ))}
-              </Box>
-              <Box
-                sx={{ display: "flex", justifyContent: "center", gap: "15px" }}
-              >
-                <Button
-                  variant="contained"
-                  href={project.link}
-                  target="_blank"
-                  sx={{
-                    background:
-                      "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
-                    color: "white",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                    padding: "8px 16px",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
+                    Project
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    href={project.source}
+                    target="_blank"
+                    sx={{
                       background:
-                        "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
+                        "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
                       color: "white",
-                    },
-                  }}
-                >
-                  Project
-                </Button>
-                <Button
-                  variant="outlined"
-                  href={project.source}
-                  target="_blank"
-                  sx={{
-                    background:
-                      "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
-                    color: "white",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                    padding: "8px 16px",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      background:
-                        "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
-                      color: "white",
-                    },
-                  }}
-                >
-                  GitHub
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      padding: "8px 16px",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, #6f8bbd 100%)",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    GitHub
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid2>
         ))}
       </Box>
     </Box>

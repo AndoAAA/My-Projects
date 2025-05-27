@@ -15,8 +15,18 @@ import library from "../assets/projectPhotos/library.jpg";
 import typescript from "../assets/typescript.png";
 import next from "../assets/Next.js.png";
 import vercel from "../assets/Vercel.png";
+import spectraImg from "../assets/projectPhotos/spectra.jpg";
+import firebaseIcon from "../assets/firebase.png";
 
 export const projects = [
+  {
+    title: "Multilingual Clinic Website with Booking System",
+    imageSrc: spectraImg,
+    skills: ["React JS", "TypeScript", "Material UI", "Firebase"],
+    link: "https://www.spectradentalclinic.com/",
+    source:
+      "https://github.com/AndoAAA/My-Projects-TypeScript/tree/Spectra-dental-clinic",
+  },
   {
     title: "Responsive Online Store Developed in React",
     imageSrc: ecommerce1,
@@ -103,5 +113,9 @@ export const skills = [
   {
     title: "Vercel",
     imageSrc: vercel,
+  },
+  {
+    title: "Firebase",
+    imageSrc: firebaseIcon,
   },
 ];
