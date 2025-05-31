@@ -31,12 +31,13 @@ function Navbar() {
           px: 3,
         }}
       >
-        {/* Logo / Brand */}
+        {/* Logo */}
         <Link
           to="hero"
           smooth={true}
           duration={500}
-          style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
+          className="nav-link"
+          style={{ textDecoration: "none", cursor: "pointer" }}
         >
           <Box
             component="img"
@@ -52,23 +53,20 @@ function Navbar() {
           />
         </Link>
 
-        {/* Mobile Menu Icon */}
-        {isMobile && (
+        {/* Mobile Menu */}
+        {isMobile ? (
           <IconButton
             onClick={() => setOpenMenu(!openMenu)}
             sx={{
-              color: theme.palette.common.white,
+              color: "white",
               transition: "transform 0.3s ease",
               "&:hover": { transform: "scale(1.1)", color: "#00c8ff" },
             }}
           >
             <MenuIcon fontSize="large" />
           </IconButton>
-        )}
-
-        {/* Navigation Links (Desktop) */}
-        {!isMobile && (
-          <Box component="nav" sx={navLinksStyle}>
+        ) : (
+          <Box component="nav" sx={{ display: "flex", gap: "30px" }}>
             <NavItem to="about" label="About" />
             <NavItem to="skills" label="Skills" />
             <NavItem to="projects" label="Projects" />
@@ -77,7 +75,7 @@ function Navbar() {
         )}
       </Toolbar>
 
-      {/* Mobile Menu Drawer */}
+      {/* Drawer */}
       <Drawer
         anchor="right"
         open={openMenu}
@@ -88,9 +86,6 @@ function Navbar() {
             width: 250,
             padding: "20px",
             backgroundColor: "rgba(25, 55, 109, 1)",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            transform: openMenu ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 0.4s ease-in-out",
           },
         }}
       >
@@ -100,14 +95,7 @@ function Navbar() {
         >
           <CloseIcon fontSize="large" />
         </IconButton>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            cursor: "pointer",
-          }}
-        >
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <MobileNavItem to="about" label="About" closeMenu={setOpenMenu} />
           <MobileNavItem to="skills" label="Skills" closeMenu={setOpenMenu} />
           <MobileNavItem
@@ -126,72 +114,29 @@ function Navbar() {
   );
 }
 
-// Reusable Nav Item (Desktop)
 const NavItem = ({ to, label }) => (
-  <Link to={to} smooth={true} duration={500} style={navLinkStyle}>
-    {label}
-  </Link>
-);
-
-// Reusable Nav Item (Mobile)
-const MobileNavItem = ({ to, label, closeMenu }) => (
   <Link
     to={to}
     smooth={true}
     duration={500}
-    style={mobileNavLinkStyle}
-    onClick={() => closeMenu(false)}
+    activeClass="active"
+    className="nav-link"
   >
     {label}
   </Link>
 );
 
-// Styles
-const navLinksStyle = {
-  display: "flex",
-  gap: "30px",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "20px",
-};
-
-const navLinkStyle = {
-  cursor: "pointer",
-  color: "#fff",
-  fontSize: "1.1rem",
-  fontWeight: "600",
-  textDecoration: "none",
-  position: "relative",
-  transition: "color 0.3s ease",
-  "&:hover": {
-    color: "#00c8ff",
-  },
-  "&::after": {
-    content: "''",
-    display: "block",
-    width: "100%",
-    height: "2px",
-    background: "#00c8ff",
-    position: "absolute",
-    bottom: "-5px",
-    left: "0",
-    transform: "scaleX(0)",
-    transition: "transform 0.3s ease",
-  },
-  "&:hover::after": {
-    transform: "scaleX(1)",
-  },
-};
-
-const mobileNavLinkStyle = {
-  textDecoration: "none",
-  color: "white",
-  fontSize: "1.2rem",
-  fontWeight: "600",
-  padding: "10px 0",
-  borderBottom: "1px solid #ccc",
-  transition: "color 0.3s ease",
-  "&:hover": { color: "#00c8ff" },
-};
+const MobileNavItem = ({ to, label, closeMenu }) => (
+  <Link
+    to={to}
+    smooth={true}
+    duration={500}
+    activeClass="active"
+    className="nav-link"
+    onClick={() => closeMenu(false)}
+  >
+    {label}
+  </Link>
+);
 
 export default Navbar;

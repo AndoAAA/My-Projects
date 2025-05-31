@@ -53,6 +53,10 @@ function Hero() {
             borderRadius: "25px",
             background:
               "linear-gradient(0deg, rgba(25, 55, 109, 0.2) 0%, rgba(25, 55, 109, 1) 100%)",
+            display: {
+              xs: "none",
+              sm: "inline-flex",
+            },
           }}
           component="a"
           href="/assets/cv/cv.pdf"
