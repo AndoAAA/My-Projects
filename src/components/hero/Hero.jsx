@@ -59,8 +59,10 @@ function Hero() {
             },
           }}
           component="a"
-          href="/assets/cv/cv.pdf"
+          href="/assets/cv/Andranik-Tarverdyan CV.pdf"
           download="Andranik_Tarverdyan_CV.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Download CV
         </Button>

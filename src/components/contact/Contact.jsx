@@ -62,7 +62,7 @@ function Contact() {
     if (!validateForm()) return;
 
     setLoading(true);
-    setMessageStatus(""); // Resetting status message before submitting
+    setMessageStatus("");
 
     try {
       await emailjs.send(
