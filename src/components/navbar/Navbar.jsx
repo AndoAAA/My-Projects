@@ -126,14 +126,14 @@ function Navbar() {
   );
 }
 
-// Reusable Nav Item (Desktop)
+
 const NavItem = ({ to, label }) => (
   <Link to={to} smooth={true} duration={500} style={navLinkStyle}>
     {label}
   </Link>
 );
 
-// Reusable Nav Item (Mobile)
+
 const MobileNavItem = ({ to, label, closeMenu }) => (
   <Link
     to={to}
@@ -146,7 +146,7 @@ const MobileNavItem = ({ to, label, closeMenu }) => (
   </Link>
 );
 
-// Styles
+
 const navLinksStyle = {
   display: "flex",
   gap: "30px",
