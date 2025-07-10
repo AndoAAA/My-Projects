@@ -17,6 +17,7 @@ import next from "../assets/Next.js.png";
 import vercel from "../assets/Vercel.png";
 import spectraImg from "../assets/projectPhotos/spectra.jpg";
 import firebaseIcon from "../assets/firebase.png";
+import constructionImg from "../assets/projectPhotos/construction.jpg";
 
 export const projects = [
   {
@@ -26,6 +27,14 @@ export const projects = [
     link: "https://www.spectradentalclinic.com/",
     source:
       "https://github.com/AndoAAA/My-Projects-TypeScript/tree/Spectra-dental-clinic",
+  },
+  {
+    title: "Modern Construction Company Website",
+    imageSrc: constructionImg,
+    skills: ["Next.js", "TypeScript", "Material UI", "Framer Motion"],
+    link: "https://construction.tarverdyan-projects.com/",
+    source:
+      "https://github.com/AndoAAA/Next.js-TypeScript/tree/Construction-Website",
   },
   {
     title: "Responsive Online Store Developed in React",
