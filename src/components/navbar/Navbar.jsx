@@ -7,16 +7,31 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-scroll";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../../assets/logo/icon.png";
+import "./Navbar.css";
+import { Events, scrollSpy } from "react-scroll";
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    try {
+      scrollSpy.update();
+    } catch (e) {
+      console.warn("ScrollSpy error:", e);
+    }
+
+    return () => {
+      Events.scrollEvent.remove("begin");
+      Events.scrollEvent.remove("end");
+    };
+  }, []);
 
   return (
     <AppBar
@@ -36,7 +51,8 @@ function Navbar() {
           to="hero"
           smooth={true}
           duration={500}
-          style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
+          offset={-80}
+          className="logo-link"
         >
           <Box
             component="img"
@@ -68,7 +84,7 @@ function Navbar() {
 
         {/* Navigation Links (Desktop) */}
         {!isMobile && (
-          <Box component="nav" sx={navLinksStyle}>
+          <Box component="nav" className="nav-links">
             <NavItem to="about" label="About" />
             <NavItem to="skills" label="Skills" />
             <NavItem to="projects" label="Projects" />
@@ -88,9 +104,6 @@ function Navbar() {
             width: 250,
             padding: "20px",
             backgroundColor: "rgba(25, 55, 109, 1)",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            transform: openMenu ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 0.4s ease-in-out",
           },
         }}
       >
@@ -100,14 +113,8 @@ function Navbar() {
         >
           <CloseIcon fontSize="large" />
         </IconButton>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            cursor: "pointer",
-          }}
-        >
+
+        <Box className="mobile-nav">
           <MobileNavItem to="about" label="About" closeMenu={setOpenMenu} />
           <MobileNavItem to="skills" label="Skills" closeMenu={setOpenMenu} />
           <MobileNavItem
@@ -126,72 +133,32 @@ function Navbar() {
   );
 }
 
-
 const NavItem = ({ to, label }) => (
-  <Link to={to} smooth={true} duration={500} style={navLinkStyle}>
+  <Link
+    to={to}
+    smooth={true}
+    duration={500}
+    offset={-80}
+    spy={true}
+    activeClass="active"
+    className="nav-link"
+  >
     {label}
   </Link>
 );
-
 
 const MobileNavItem = ({ to, label, closeMenu }) => (
   <Link
     to={to}
     smooth={true}
     duration={500}
-    style={mobileNavLinkStyle}
+    offset={-80}
+    activeClass="active"
+    className="nav-link"
     onClick={() => closeMenu(false)}
   >
     {label}
   </Link>
 );
-
-
-const navLinksStyle = {
-  display: "flex",
-  gap: "30px",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "20px",
-};
-
-const navLinkStyle = {
-  cursor: "pointer",
-  color: "#fff",
-  fontSize: "1.1rem",
-  fontWeight: "600",
-  textDecoration: "none",
-  position: "relative",
-  transition: "color 0.3s ease",
-  "&:hover": {
-    color: "#00c8ff",
-  },
-  "&::after": {
-    content: "''",
-    display: "block",
-    width: "100%",
-    height: "2px",
-    background: "#00c8ff",
-    position: "absolute",
-    bottom: "-5px",
-    left: "0",
-    transform: "scaleX(0)",
-    transition: "transform 0.3s ease",
-  },
-  "&:hover::after": {
-    transform: "scaleX(1)",
-  },
-};
-
-const mobileNavLinkStyle = {
-  textDecoration: "none",
-  color: "white",
-  fontSize: "1.2rem",
-  fontWeight: "600",
-  padding: "10px 0",
-  borderBottom: "1px solid #ccc",
-  transition: "color 0.3s ease",
-  "&:hover": { color: "#00c8ff" },
-};
 
 export default Navbar;

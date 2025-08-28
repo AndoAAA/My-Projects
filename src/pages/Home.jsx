@@ -12,7 +12,7 @@ function Home() {
       <Navbar />
       <Hero />
       <About />
-      <Skills/>
+      <Skills />
       <Projects />
       <Contact />
     </>

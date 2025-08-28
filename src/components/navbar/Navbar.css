@@ -4,13 +4,22 @@
   box-sizing: border-box;
 }
 
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
 .nav-link {
   color: white;
   font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
   position: relative;
   cursor: pointer;
   transition: color 0.3s ease;
-  text-decoration: none;
 }
 
 .nav-link:hover {
@@ -32,4 +41,14 @@
   left: 0;
 }
 
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
+.mobile-nav .nav-link {
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}

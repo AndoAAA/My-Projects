@@ -18,8 +18,16 @@ import vercel from "../assets/Vercel.png";
 import spectraImg from "../assets/projectPhotos/spectra.jpg";
 import firebaseIcon from "../assets/firebase.png";
 import constructionImg from "../assets/projectPhotos/construction.jpg";
+import furniture from "../assets/projectPhotos/furniture.jpg";
 
 export const projects = [
+  {
+    title: "Furniture Store",
+    imageSrc: furniture,
+    skills: ["Next JS", "TypeScript", "Tailwind CSS", "Redux Toolkit"],
+    link: "https://furniture-store.tarverdyan-projects.com/",
+    source: "https://github.com/AndoAAA/Next.js-TypeScript/tree/OnLine-Shop",
+  },
   {
     title: "Multilingual Clinic Website with Booking System",
     imageSrc: spectraImg,
